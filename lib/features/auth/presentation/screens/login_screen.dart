@@ -4,7 +4,7 @@ import 'package:shartflix/core/constants/app_colors.dart';
 import 'package:shartflix/core/constants/app_icons.dart';
 import 'package:shartflix/core/utils/font_helper.dart';
 import 'package:shartflix/features/auth/presentation/widgets/custom_text_field.dart';
-import 'package:shartflix/features/auth/presentation/widgets/custom_button.dart';
+import 'package:shartflix/features/auth/presentation/widgets/custom_login_button.dart';
 import 'package:shartflix/features/auth/presentation/widgets/social_login_button.dart';
 import 'package:shartflix/core/utils/localization_manager.dart';
 
@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     width: 236.w,
                     child: Text(
-                      'Tempus varius a vitae interdum id tortor elementum tristique elefend at.'
+                      'Tempus varius a vitae interdum id tortor elementum tristique eleifend at.'
                           .localized,
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -76,14 +76,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   CustomTextField(
                     hintText: 'E-Posta'.localized,
-                    prefixIcon: Icons.email_outlined,
+                    prefixIcon: AppIcons.emailIcon,
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   SizedBox(height: 14.h),
                   CustomTextField(
                     hintText: 'Şifre'.localized,
-                    prefixIcon: Icons.lock_outline,
+                    prefixIcon: AppIcons.unlockIcon,
                     controller: _passwordController,
                     isPassword: true,
                   ),
@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontSize: 12.sp,
                           decoration: TextDecoration.underline,
                           decorationColor: AppColors.textPrimary,
-                          letterSpacing: 0,
+                          decorationThickness: 0.7,
                         ),
                       ),
                     ),
@@ -116,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 14.h),
 
               // Login Button
-              CustomButton(
+              CustomLoginButton(
                 text: 'Giriş Yap'.localized,
                 onPressed: () {
                   // TODO: Login logic
@@ -184,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 6.h),
+              SizedBox(height: 5.h),
             ],
           ),
         ),

@@ -5,7 +5,7 @@ import 'package:shartflix/core/utils/font_helper.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hintText;
-  final IconData prefixIcon;
+  final String prefixIcon;
   final bool isPassword;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
@@ -29,12 +29,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(18.r),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.2),
-        ),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
       ),
       child: TextField(
         cursorColor: AppColors.textPrimary,
@@ -54,25 +53,27 @@ class _CustomTextFieldState extends State<CustomTextField> {
             color: AppColors.textPrimary.withValues(alpha: 0.5),
             fontSize: 12.sp,
           ),
-          prefixIcon: Icon(
+          prefixIcon: Image.asset(
             widget.prefixIcon,
-            color: AppColors.textPrimary,
-            size: 22.sp,
+            scale: 1.4.h,
+            width: 22.w,
+            height: 22.h,
           ),
-          suffixIcon: widget.isPassword
-              ? IconButton(
-                  icon: Icon(
-                    _obscureText ? Icons.visibility_off : Icons.visibility,
-                    color: AppColors.textPrimary,
-                    size: 22.sp,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _obscureText = !_obscureText;
-                    });
-                  },
-                )
-              : null,
+          suffixIcon:
+              widget.isPassword
+                  ? IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility_off : Icons.visibility,
+                      color: AppColors.textPrimary,
+                      size: 22.sp,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  )
+                  : null,
           border: InputBorder.none,
           contentPadding: EdgeInsets.only(
             left: 16.w,
@@ -84,4 +85,4 @@ class _CustomTextFieldState extends State<CustomTextField> {
       ),
     );
   }
-} 
+}

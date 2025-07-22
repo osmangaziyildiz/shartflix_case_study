@@ -6,4 +6,5 @@ class AppIcons {
   static const String facebook = 'assets/icons/facebook_icon.png';
 
   static const String unlockIcon = 'assets/icons/unlock_icon.png';
+  static const String emailIcon = 'assets/icons/email_icon.png';
 }

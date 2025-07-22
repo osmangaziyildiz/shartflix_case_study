@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shartflix/core/constants/app_colors.dart';
 import 'package:shartflix/core/utils/font_helper.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomLoginButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final Color? backgroundColor;
@@ -11,7 +11,7 @@ class CustomButton extends StatelessWidget {
   final bool isLoading;
   final double? height;
 
-  const CustomButton({
+  const CustomLoginButton({
     super.key,
     required this.text,
     required this.onPressed,
