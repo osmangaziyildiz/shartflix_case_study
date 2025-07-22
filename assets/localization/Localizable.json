@@ -1,0 +1,16 @@
+{
+  "Hoş Geldiniz": {
+    "localizations": {
+      "az": "Xoş gəlmisiniz",
+      "de": "Willkommen",
+      "en": "Welcome",
+      "es-ES": "Bienvenido",
+      "es-MX": "Bienvenido",
+      "fr": "Bienvenue",
+      "it": "Benvenuto",
+      "pt-BR": "Bem-vindo",
+      "pt-PT": "Bem-vindo",
+      "tr": "Hoş geldiniz"
+    }
+  }
+}
