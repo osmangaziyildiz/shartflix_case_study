@@ -60,6 +60,6 @@ flutter:
           weight: 700
           style: italic
 
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/localization/
+    - assets/icons/

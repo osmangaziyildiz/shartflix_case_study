@@ -12,5 +12,53 @@
       "pt-PT": "Bem-vindo",
       "tr": "Hoş geldiniz"
     }
+  },
+  "Merhabalar": {
+    "localizations": {
+      "tr": "Merhabalar",
+      "en": "Hello There"
+    }
+  },
+  "Tempus varius a vitae interdum id tortor elementum tristique elefend at.": {
+    "localizations": {
+      "tr": "Tempus varius a vitae interdum id tortor elementum tristique elefend at.",
+      "en": "Tempus varius a vitae interdum id tortor elementum tristique elefend at."
+    }
+  },
+  "E-Posta": {
+    "localizations": {
+      "tr": "E-Posta",
+      "en": "Email"
+    }
+  },
+  "Şifre": {
+    "localizations": {
+      "tr": "Şifre",
+      "en": "Password"
+    }
+  },
+  "Şifremi unuttum": {
+    "localizations": {
+      "tr": "Şifremi unuttum",
+      "en": "Forgot password"
+    }
+  },
+  "Giriş Yap": {
+    "localizations": {
+      "tr": "Giriş Yap",
+      "en": "Sign In"
+    }
+  },
+  "Bir hesabın yok mu?": {
+    "localizations": {
+      "tr": "Bir hesabın yok mu?",
+      "en": "Don't have an account?"
+    }
+  },
+  "Kayıt Ol": {
+    "localizations": {
+      "tr": "Kayıt Ol!",
+      "en": "Sign Up!"
+    }
   }
 }
