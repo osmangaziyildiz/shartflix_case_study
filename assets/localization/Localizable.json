@@ -37,6 +37,12 @@
       "en": "Password"
     }
   },
+  "Şifre tekrar": {
+    "localizations": {
+      "tr": "Şifre tekrar",
+      "en": "Repeat Password"
+    }
+  },
   "Şifremi unuttum": {
     "localizations": {
       "tr": "Şifremi unuttum",
@@ -59,6 +65,96 @@
     "localizations": {
       "tr": "Kayıt Ol!",
       "en": "Sign Up!"
+    }
+  },
+  "Email veya şifre hatalı": {
+    "localizations": {
+      "tr": "Email veya şifre hatalı",
+      "en": "Email or password is incorrect"
+    }
+  },
+  "Sunucu hatası": {
+    "localizations": {
+      "tr": "Sunucu hatası",
+      "en": "Server error"
+    }
+  },
+  "İnternet bağlantınızı kontrol edin": {
+    "localizations": {
+      "tr": "İnternet bağlantınızı kontrol edin",
+      "en": "Check your internet connection"
+    }
+  },
+  "Ad Soyad": {
+    "localizations": {
+      "tr": "Ad Soyad",
+      "en": "Name and Surname"
+    }
+  },
+  "Şimdi Kaydol": {
+    "localizations": {
+      "tr": "Şimdi Kaydol",
+      "en": "Register Now"
+    }
+  },
+  "Kullanıcı sözleşmesini ": {
+    "localizations": {
+      "tr": "Kullanıcı sözleşmesini ",
+      "en": "I have read and accept the "
+    }
+  },
+  "okudum ve kabul ediyorum.": {
+    "localizations": {
+      "tr": "okudum ve kabul ediyorum.",
+      "en": "user agreement"
+    }
+  },
+  " Bu sözleşmeyi okuyarak devam ediniz lütfen.": {
+    "localizations": {
+      "tr": " Bu sözleşmeyi okuyarak devam ediniz lütfen.",
+      "en": " Please read and accept the user agreement"
+    }
+  },
+  "Bu e-posta ile zaten bir hesap var.": {
+    "localizations": {
+      "tr": "Bu e-posta ile zaten bir hesap var.",
+      "en": "An account already exists with this email"
+    }
+  },
+  "Şifreler eşleşmiyor": {
+    "localizations": {
+      "tr": "Şifreler eşleşmiyor",
+      "en": "Passwords do not match"
+    }
+  },
+  "Email boş olamaz": {
+    "localizations": {
+      "tr": "Email boş olamaz",
+      "en": "Email cannot be empty"
+    }
+  },
+  "Geçerli bir email adresi girin": {
+    "localizations": {
+      "tr": "Geçerli bir email adresi girin",
+      "en": "Please enter a valid email address"
+    }
+  },
+  "Şifre boş olamaz": {
+    "localizations": {
+      "tr": "Şifre boş olamaz",
+      "en": "Password cannot be empty"
+    }
+  },
+  "Şifre en az 6 karakter olmalı": {
+    "localizations": {
+      "tr": "Şifre en az 6 karakter olmalı",
+      "en": "Password must be at least 6 characters long"
+    }
+  },
+  "Ad Soyad boş olamaz": {
+    "localizations": {
+      "tr": "Ad Soyad boş olamaz",
+      "en": "Name and Surname cannot be empty"
     }
   }
 }

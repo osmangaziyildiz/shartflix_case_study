@@ -9,6 +9,9 @@ class CustomTextField extends StatefulWidget {
   final bool isPassword;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
+  final bool? obscureText;
+  final VoidCallback? onToggleVisibility;
+  final bool showVisibilityToggle;
 
   const CustomTextField({
     super.key,
@@ -17,6 +20,9 @@ class CustomTextField extends StatefulWidget {
     this.isPassword = false,
     this.controller,
     this.keyboardType,
+    this.obscureText,
+    this.onToggleVisibility,
+    this.showVisibilityToggle = true,
   });
 
   @override
@@ -28,6 +34,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final bool effectiveObscureText = widget.obscureText ?? _obscureText;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       decoration: BoxDecoration(
@@ -39,7 +46,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         cursorColor: AppColors.textPrimary,
         controller: widget.controller,
         keyboardType: widget.keyboardType,
-        obscureText: widget.isPassword ? _obscureText : false,
+        obscureText: widget.isPassword ? effectiveObscureText : false,
         style: TextStyle(
           fontFamily: FontHelper.euclidCircularA().fontFamily,
           color: AppColors.textPrimary,
@@ -59,27 +66,26 @@ class _CustomTextFieldState extends State<CustomTextField> {
             width: 22.w,
             height: 22.h,
           ),
-          suffixIcon:
-              widget.isPassword
-                  ? IconButton(
-                    icon: Icon(
-                      _obscureText ? Icons.visibility_off : Icons.visibility,
-                      color: AppColors.textPrimary,
-                      size: 22.sp,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    },
-                  )
-                  : null,
+          suffixIcon: widget.isPassword && widget.showVisibilityToggle
+              ? IconButton(
+                  icon: Icon(
+                    effectiveObscureText ? Icons.visibility_off : Icons.visibility,
+                    color: AppColors.textPrimary,
+                    size: 22.sp,
+                  ),
+                  onPressed: widget.onToggleVisibility ?? () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
+                )
+              : null,
           border: InputBorder.none,
           contentPadding: EdgeInsets.only(
             left: 16.w,
             right: 16.w,
-            top: 16.h,
-            bottom: 16.h,
+            top: 15.h,
+            bottom: 15.h,
           ),
         ),
       ),

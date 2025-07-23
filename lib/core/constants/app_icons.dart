@@ -8,4 +8,5 @@ class AppIcons {
   // Auth Icons
   static const String unlockIcon = 'assets/icons/unlock_icon.png';
   static const String emailIcon = 'assets/icons/email_icon.png';
+  static const String userIcon = 'assets/icons/user_icon.png';
 }
