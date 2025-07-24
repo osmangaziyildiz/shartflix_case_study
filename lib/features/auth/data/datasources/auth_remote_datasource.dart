@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:shartflix/core/error/exceptions.dart';
 import 'package:shartflix/core/network/api_endpoints.dart';
 import 'package:shartflix/core/utils/localization_manager.dart';
 import 'package:shartflix/features/auth/data/models/login_request_model.dart';
@@ -22,7 +23,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       final response = await dio.post(ApiEndPoints.login, data: request.toJson());
       return LoginResponseModel.fromJson(response.data);
     } on DioException catch (e) {
-      throw _handleLoginError(e);
+      throw ServerException.fromDioException(e, customMessages: {
+        400: 'Email veya şifre hatalı'.localized,
+        500: 'Sunucuda bir sorun oluştu, lütfen daha sonra tekrar deneyin.'.localized,
+      });
     }
   }
 
@@ -32,47 +36,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       final response = await dio.post(ApiEndPoints.register, data: request.toJson());
       return RegisterResponseModel.fromJson(response.data);
     } on DioException catch (e) {
-      throw _handleRegisterError(e);
-    }
-  }
-
-  // TODO: Base bir error handling yapısı oluşturulacak. Bu yapı geçici olarak yazıldı.
-  Exception _handleLoginError(DioException error) {
-    switch (error.type) {
-      case DioExceptionType.connectionTimeout:
-      case DioExceptionType.sendTimeout:
-      case DioExceptionType.receiveTimeout:
-        return Exception('Bağlantı zaman aşımı'.localized);
-      case DioExceptionType.badResponse:
-        final statusCode = error.response?.statusCode;
-        if (statusCode == 400) {
-          return Exception('Email veya şifre hatalı'.localized);
-        } else if (statusCode == 500) {
-          return Exception('Sunucu hatası'.localized);
-        }
-        return Exception('Bir hata oluştu: $statusCode'.localized);
-      default:
-        return Exception('İnternet bağlantınızı kontrol edin'.localized);
-    }
-  }
-
-  // TODO: Base bir error handling yapısı oluşturulacak. Bu yapı geçici olarak yazıldı.
-  Exception _handleRegisterError(DioException error) {
-    switch (error.type) {
-      case DioExceptionType.connectionTimeout:
-      case DioExceptionType.sendTimeout:
-      case DioExceptionType.receiveTimeout:
-        return Exception('Bağlantı zaman aşımı'.localized);
-      case DioExceptionType.badResponse:
-        final statusCode = error.response?.statusCode;
-        if (statusCode == 400) {
-          return Exception('Bu e-posta ile zaten bir hesap var.'.localized);
-        } else if (statusCode == 500) {
-          return Exception('Sunucu hatası'.localized);
-        }
-        return Exception('Bir hata oluştu: $statusCode'.localized);
-      default:
-        return Exception('İnternet bağlantınızı kontrol edin'.localized);
+      throw ServerException.fromDioException(e, customMessages: {
+        400: 'Bu e-posta ile zaten bir hesap var.'.localized,
+        500: 'Sunucuda bir sorun oluştu, lütfen daha sonra tekrar deneyin.'.localized,
+      });
     }
   }
 }

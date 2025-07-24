@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:shartflix/core/error/exceptions.dart';
 import 'package:shartflix/core/network/api_endpoints.dart';
+import 'package:shartflix/core/utils/localization_manager.dart';
 import 'package:shartflix/features/home/data/models/movie_list_response_model.dart';
 import 'package:shartflix/features/home/data/models/toggle_favorite_response_model.dart';
 
@@ -18,9 +20,12 @@ class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
     try {
       final response = await dio.get('${ApiEndPoints.movieList}?page=$page');
       return MovieListResponseModel.fromJson(response.data['data']);
-    } catch (e) {
-      // TODO: Add specific error handling like in AuthRemoteDataSource
-      rethrow;
+    } on DioException catch (e) {
+      throw ServerException.fromDioException(e, customMessages: {
+        400: 'Beklenmedik bir hata oluştu'.localized,
+        401: 'Lütfen hesabınızdan çıkıp tekrar giriş yapınız'.localized,
+        500: 'Sunucuda bir sorun oluştu, lütfen daha sonra tekrar deneyin.'.localized,
+      });
     }
   }
 
@@ -29,8 +34,12 @@ class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
     try {
       final response = await dio.post('${ApiEndPoints.toggleFavorite}$movieId');
       return ToggleFavoriteResponseModel.fromJson(response.data['data']);
-    } catch (e) {
-      rethrow;
+    } on DioException catch (e) {
+      throw ServerException.fromDioException(e, customMessages: {
+        400: 'Beklenmedik bir hata oluştu'.localized,
+        401: 'Lütfen hesabınızdan çıkıp tekrar giriş yapınız'.localized,
+        404: 'Beklenmedik bir hata oluştu, lütfen daha sonra tekrar deneyiniz'.localized,
+      });
     }
   }
 } 

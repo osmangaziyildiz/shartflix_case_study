@@ -228,5 +228,23 @@
       "tr": "Gösterilecek film bulunamadı.",
       "en": "No films to show"
     }
+  },
+  "Beklenmedik bir hata oluştu": {
+    "localizations": {
+      "tr": "Beklenmedik bir hata oluştu",
+      "en": "An unexpected error occurred"
+    }
+  },
+  "Lütfen hesabınızdan çıkıp tekrar giriş yapınız": {
+    "localizations": {
+      "tr": "Lütfen hesabınızdan çıkıp tekrar giriş yapınız",
+      "en": "Please log out and log in again"
+    }
+  },
+  "Beklenmedik bir hata oluştu, lütfen daha sonra tekrar deneyiniz": {
+    "localizations": {
+      "tr": "Beklenmedik bir hata oluştu, lütfen daha sonra tekrar deneyiniz",
+      "en": "An unexpected error occurred, please try again later"
+    }
   }
 }

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shartflix/core/error/exceptions.dart';
 import 'package:shartflix/features/auth/domain/usecases/login_usecase.dart';
 import 'package:shartflix/features/auth/domain/usecases/register_usecase.dart';
 import 'package:shartflix/features/auth/presentation/viewmodels/auth_state.dart';
@@ -8,27 +8,16 @@ class AuthViewModel extends Cubit<AuthState> {
   final LoginUseCase loginUseCase;
   final RegisterUseCase registerUseCase;
 
-  AuthViewModel({required this.loginUseCase, required this.registerUseCase}) : super(AuthInitial());
+  AuthViewModel({required this.loginUseCase, required this.registerUseCase})
+    : super(AuthInitial());
 
-  @override
-  Future<void> close() {
-    debugPrint('AuthViewmodel closed');
-    return super.close();
-  }
-
-  Future<void> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> login({required String email, required String password}) async {
     try {
       emit(AuthLoading());
-      final user = await loginUseCase(
-        email: email,
-        password: password,
-      );
+      final user = await loginUseCase(email: email, password: password);
       emit(AuthSuccess(user: user));
-    } catch (e) {
-      emit(AuthError(message: e.toString().replaceFirst('Exception: ', '')));
+    } on ServerException catch (e) {
+      emit(AuthError(message: e.message));
     }
   }
 
@@ -47,12 +36,12 @@ class AuthViewModel extends Cubit<AuthState> {
         passwordAgain: passwordAgain,
       );
       emit(AuthSuccess(user: user));
-    } catch (e) {
-      emit(AuthError(message: e.toString().replaceFirst('Exception: ', '')));
+    } on ServerException catch (e) {
+      emit(AuthError(message: e.message));
     }
   }
 
   void reset() {
     emit(AuthInitial());
   }
-} 
+}
