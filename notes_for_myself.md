@@ -1,0 +1,42 @@
+## Ana sayfa hakkında ##
+
+Ana sayfaya dair bir tasarım bulunmadığı için kendimce bir UI tasarladım.
+Figmadaki ana sayfa tasarımı bir filme tıklayınca açılan detay sayfası gibi düşündüm, filmlerin nasıl listelendiğini göremedim.
+
+
+## Mimari ve proje yapısı hakkında ##
+
+Sınıflara ProfileBloc yerine ProfileViewModel gibi isimler verdim MVVM pattern istendiği için.
+Normalde böyle küçük bir proje için tam kurallı bir clean arhictecture kullanmaya gerek olmadığını düşünüp mail attım
+fakat maile herhangi bir dönüş olmayınca tam kurallı bir Clean Architecture istendiği düşündüm ve tüm abstract class, usecase, entity vb.
+katmanları kuralları bir şekilde uyguladım. 
+
+Daha basit olarak şöyle bir yapı kullanılabilirdi:
+
+lib/
+├── core/                       
+│   ├── network/
+│   ├── constants/
+│   ├── navigation/
+│   ├── widgets/
+│   └── utils/
+│
+├── features/
+│   └── auth/
+│       ├── repositories/
+│       │   ├── auth_local_data_sources.dart
+│       │   ├── auth_remote_data_sources.dart
+│       ├── models/
+│       │   ├── login_request_model.dart
+│       │   ├── login_response_model.dart
+│       ├── viewmodels/
+│       │   ├── auth_viewmodel.dart
+│       └── screens/
+│           ├── login_screen.dart
+│           ├── register_screen.dart
+│           └── widgets/
+│           ├── custom_textfield.dart
+│           ├── custom_button.dart
+│
+│       └── //.... Diğer featurelar
+├── main.dart

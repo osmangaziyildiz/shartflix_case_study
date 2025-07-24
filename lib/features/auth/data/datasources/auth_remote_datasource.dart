@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:shartflix/core/network/api_endpoints.dart';
 import 'package:shartflix/core/utils/localization_manager.dart';
 import 'package:shartflix/features/auth/data/models/login_request_model.dart';
 import 'package:shartflix/features/auth/data/models/login_response_model.dart';
@@ -18,7 +19,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<LoginResponseModel> login(LoginRequestModel request) async {
     try {
-      final response = await dio.post('/user/login', data: request.toJson());
+      final response = await dio.post(ApiEndPoints.login, data: request.toJson());
       return LoginResponseModel.fromJson(response.data);
     } on DioException catch (e) {
       throw _handleLoginError(e);
@@ -28,7 +29,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<RegisterResponseModel> register(RegisterRequestModel request) async {
     try {
-      final response = await dio.post('/user/register', data: request.toJson());
+      final response = await dio.post(ApiEndPoints.register, data: request.toJson());
       return RegisterResponseModel.fromJson(response.data);
     } on DioException catch (e) {
       throw _handleRegisterError(e);

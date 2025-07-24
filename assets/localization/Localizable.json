@@ -156,5 +156,77 @@
       "tr": "Ad Soyad boş olamaz",
       "en": "Name and Surname cannot be empty"
     }
+  },
+  "Fotoğraf Ekle": {
+    "localizations": {
+      "tr": "Fotoğraf Ekle",
+      "en": "Add Photo"
+    }
+  },
+  "Fotoğraflarınızı Yükleyin": {
+    "localizations": {
+      "tr": "Fotoğraflarınızı Yükleyin",
+      "en": "Upload Your Photos"
+    }
+  },
+  "Resources out incentivize relaxation floor loss cc.": {
+    "localizations": {
+      "tr": "Resources out incentivize relaxation floor loss cc.",
+      "en": "Resources out incentivize relaxation floor loss cc."
+    }
+  },
+  "Sınırlı Teklif": {
+    "localizations": {
+      "tr": "Sınırlı Teklif",
+      "en": "Limited Offer"
+    }
+  },
+  "Profil Detayı": {
+    "localizations": {
+      "tr": "Profil Detayı",
+      "en": "Profile Details"
+    }
+  },
+  "Devam Et": {
+    "localizations": {
+      "tr": "Devam Et",
+      "en": "Continue"
+    }
+  },
+  "Görsel Yok": {
+    "localizations": {
+      "tr": "Görsel Yok",
+      "en": "No Image"
+    }
+  },
+  "Beğendiğim Filmler": {
+    "localizations": {
+      "tr": "Beğendiğim Filmler",
+      "en": "My Favorite Films"
+    }
+  },
+  "Henüz hiç bir filmi favoriye eklemediniz.": {
+    "localizations": {
+      "tr": "Henüz hiç bir filmi favoriye eklemediniz.",
+      "en": "You haven't added any films to your favorites yet."
+    }
+  },
+  "Fimler Yüklenemedi :(": {
+    "localizations": {
+      "tr": "Fimler Yüklenemedi :(",
+      "en": "Films could not be loaded :("
+    }
+  },
+  "Profil bilgileri yüklenemedi :(": {
+    "localizations": {
+      "tr": "Profil bilgileri yüklenemedi :(",
+      "en": "Profile information could not be loaded :("
+    }
+  },
+  "Gösterilecek film bulunamadı.": {
+    "localizations": {
+      "tr": "Gösterilecek film bulunamadı.",
+      "en": "No films to show"
+    }
   }
 }

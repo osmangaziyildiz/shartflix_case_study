@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class DioClient {
   static const String _baseUrl = "https://caseapi.servicelabs.tech/";
 
   late final Dio _dio;
+  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
 
   // Private constructor for singleton
   DioClient._() {
@@ -15,9 +17,15 @@ class DioClient {
       ),
     );
 
+    // Token interceptor
     _dio.interceptors.add(
       InterceptorsWrapper(
-        onRequest: (options, handler) {
+        onRequest: (options, handler) async {
+          // Token'ı storage'dan oku ve header'a ekle
+          final token = await _secureStorage.read(key: 'auth_token');
+          if (token != null && token.isNotEmpty) {
+            options.headers['Authorization'] = 'Bearer $token';
+          }
           debugPrint('🚀 REQUEST: ${options.method} ${options.path}');
           debugPrint('📤 Headers: ${options.headers}');
           if (options.data != null) {

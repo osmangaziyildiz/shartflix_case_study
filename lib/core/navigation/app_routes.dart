@@ -5,4 +5,8 @@ class Routes {
 
   // Home Routes
   static const String home = '/home';
+
+  // Profile Routes
+  static const String myProfile = '/my-profile';
+  static const String photoUpload = '/photo-upload';
 }

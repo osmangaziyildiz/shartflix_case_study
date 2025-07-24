@@ -1,10 +1,12 @@
 lib/
 ├── core/                        # Tüm modüllerde ortak yapılar
 │   ├── network/                 # Network utils, connectivity checker
-│   ├── usecase/                 # Base UseCase abstract sınıfı
-│   └── utils/                   # Genel yardımcı fonksiyonlar, extensions
+│   ├── constants/               # App boyunca sabit değerler path, color vb.
+│   ├── navigation/              # App'in route tanımları ve merkezi router yönetimi.
+│   ├── widgets/                 # Resuable ve ortak widget'lar.
+│   └── utils/                   # Genel yardımcı fonksiyonlar, extensions.
 │
-├── features/
+├── features/                    # Feature-first mimari, her özellik kendi dosyalarından sorumludur.
 │   └── auth/
 │       ├── data/
 │       │   ├── models/
@@ -18,8 +20,4 @@ lib/
 │           ├── screens/         # LoginScreen, RegisterScreen
 │           ├── viewmodel/       # LoginBloc, LoginEvent, LoginState
 │           └── widgets/
-├── app/
-│   ├── router/
-│   ├── theme/
-│   └── app.dart
 ├── main.dart

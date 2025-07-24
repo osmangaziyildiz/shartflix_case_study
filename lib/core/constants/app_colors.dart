@@ -7,6 +7,7 @@ class AppColors {
   
   // Background Colors
   static const Color background = Color(0xFF090909); // Çok koyu gri/siyah
+  static const Color backgroundSecondary = Color(0xFF1A1A1A); // Kartlar için biraz daha açık arkaplan
   static const Color cardBackground = Color(0xFF2D3748); // Kart background
   
   // Text Colors
@@ -18,9 +19,4 @@ class AppColors {
   static const Color inputBackground = Color(0xFF4A5568); // Input arka plan
   static const Color inputBorder = Color(0xFF718096); // Input border
   static const Color inputFocused = Color(0xFFE53E3E); // Focused border
-  
-  // Social Colors
-  static const Color google = Color(0xFF4285F4);
-  static const Color apple = Color(0xFF000000);
-  static const Color facebook = Color(0xFF1877F2);
 } 
