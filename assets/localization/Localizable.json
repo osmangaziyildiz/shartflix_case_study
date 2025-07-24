@@ -1,5 +1,5 @@
 {
-  "Hoş Geldiniz": {
+  "Hoş geldiniz": {
     "localizations": {
       "az": "Xoş gəlmisiniz",
       "de": "Willkommen",
@@ -37,9 +37,9 @@
       "en": "Password"
     }
   },
-  "Şifre tekrar": {
+  "Şifre Tekrar": {
     "localizations": {
-      "tr": "Şifre tekrar",
+      "tr": "Şifre Tekrar",
       "en": "Repeat Password"
     }
   },
@@ -47,6 +47,12 @@
     "localizations": {
       "tr": "Şifremi unuttum",
       "en": "Forgot password"
+    }
+  },
+  "Giriş Yap!": {
+    "localizations": {
+      "tr": "Giriş Yap!",
+      "en": "Sign In!"
     }
   },
   "Giriş Yap": {
@@ -61,10 +67,16 @@
       "en": "Don't have an account?"
     }
   },
-  "Kayıt Ol": {
+  "Zaten bir hesabın var mı?": {
+    "localizations": {
+      "tr": "Zaten bir hesabın var mı?",
+      "en": "Already have an account?"
+    }
+  },
+  "Kayıt Ol!": {
     "localizations": {
       "tr": "Kayıt Ol!",
-      "en": "Sign Up!"
+      "en": "Register!"
     }
   },
   "Email veya şifre hatalı": {
@@ -323,6 +335,12 @@
     "localizations": {
       "tr": "Alacağınız Bonuslar",
       "en": "What You'll Get"
+    }
+  },
+  "Fotoğraf başarıyla yüklendi": {
+    "localizations": {
+      "tr": "Fotoğraf başarıyla yüklendi",
+      "en": "Photo uploaded successfully"
     }
   }
 }

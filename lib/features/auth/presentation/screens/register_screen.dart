@@ -13,6 +13,8 @@ import 'package:shartflix/features/auth/presentation/widgets/social_login_button
 import 'package:shartflix/features/auth/presentation/viewmodels/auth_view_model.dart';
 import 'package:shartflix/features/auth/presentation/viewmodels/auth_state.dart';
 import 'package:shartflix/core/utils/localization_manager.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -25,7 +27,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _passwordAgainController = TextEditingController();
+  final TextEditingController _passwordAgainController =
+      TextEditingController();
   bool _obscureText = true;
 
   @override
@@ -57,11 +60,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               if (state is AuthSuccess) {
                 context.go(Routes.home);
               } else if (state is AuthError) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: Colors.red,
-                  ),
+                showTopSnackBar(
+                  Overlay.of(context),
+                  CustomSnackBar.error(message: state.message),
                 );
               }
             },
@@ -79,9 +80,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'Hoşgeldiniz'.localized,
+                            'Hoş geldiniz'.localized,
                             style: TextStyle(
-                              fontFamily: FontHelper.euclidCircularA().fontFamily,
+                              fontFamily:
+                                  FontHelper.euclidCircularA().fontFamily,
                               color: AppColors.textPrimary,
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w600,
@@ -95,7 +97,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   .localized,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontFamily: FontHelper.euclidCircularA().fontFamily,
+                                fontFamily:
+                                    FontHelper.euclidCircularA().fontFamily,
                                 color: AppColors.textPrimary,
                                 fontWeight: FontWeight.w400,
                                 fontSize: 13.sp,
@@ -146,15 +149,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       SizedBox(height: 14.h),
                       // Sözleşme
                       Padding(
-                        padding: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 8.h),
+                        padding: EdgeInsets.only(
+                          left: 4.w,
+                          right: 4.w,
+                          bottom: 8.h,
+                        ),
                         child: RichText(
                           text: TextSpan(
                             children: [
                               TextSpan(
                                 text: 'Kullanıcı sözleşmesini '.localized,
                                 style: TextStyle(
-                                  fontFamily: FontHelper.euclidCircularA().fontFamily,
-                                  color: AppColors.textPrimary.withValues(alpha: 0.5),
+                                  fontFamily:
+                                      FontHelper.euclidCircularA().fontFamily,
+                                  color: AppColors.textPrimary.withValues(
+                                    alpha: 0.5,
+                                  ),
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -162,7 +172,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               TextSpan(
                                 text: 'okudum ve kabul ediyorum.'.localized,
                                 style: TextStyle(
-                                  fontFamily: FontHelper.euclidCircularA().fontFamily,
+                                  fontFamily:
+                                      FontHelper.euclidCircularA().fontFamily,
                                   color: AppColors.textPrimary,
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
@@ -172,11 +183,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                               ),
                               TextSpan(
-                                text: ' Bu sözleşmeyi okuyarak devam ediniz lütfen.'
-                                    .localized,
+                                text:
+                                    ' Bu sözleşmeyi okuyarak devam ediniz lütfen.'
+                                        .localized,
                                 style: TextStyle(
-                                  fontFamily: FontHelper.euclidCircularA().fontFamily,
-                                  color: AppColors.textPrimary.withValues(alpha: 0.5),
+                                  fontFamily:
+                                      FontHelper.euclidCircularA().fontFamily,
+                                  color: AppColors.textPrimary.withValues(
+                                    alpha: 0.5,
+                                  ),
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -192,9 +207,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           return CustomLoginButton(
                             text: 'Şimdi Kaydol'.localized,
                             isLoading: state is AuthLoading,
-                            onPressed: state is AuthLoading
-                                ? () {}
-                                : () => _onRegister(context),
+                            onPressed:
+                                state is AuthLoading
+                                    ? () {}
+                                    : () => _onRegister(context),
                           );
                         },
                       ),
@@ -228,8 +244,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Text(
                             'Zaten bir hesabın var mı?'.localized,
                             style: TextStyle(
-                              fontFamily: FontHelper.euclidCircularA().fontFamily,
-                              color: AppColors.textPrimary.withValues(alpha: 0.5),
+                              fontFamily:
+                                  FontHelper.euclidCircularA().fontFamily,
+                              color: AppColors.textPrimary.withValues(
+                                alpha: 0.5,
+                              ),
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                               letterSpacing: 0,
@@ -242,7 +261,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Text(
                               'Giriş Yap!'.localized,
                               style: TextStyle(
-                                fontFamily: FontHelper.euclidCircularA().fontFamily,
+                                fontFamily:
+                                    FontHelper.euclidCircularA().fontFamily,
                                 color: AppColors.textPrimary,
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w400,

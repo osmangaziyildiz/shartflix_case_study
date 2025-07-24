@@ -13,6 +13,8 @@ import 'package:shartflix/features/auth/presentation/widgets/social_login_button
 import 'package:shartflix/features/auth/presentation/viewmodels/auth_view_model.dart';
 import 'package:shartflix/features/auth/presentation/viewmodels/auth_state.dart';
 import 'package:shartflix/core/utils/localization_manager.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -43,11 +45,10 @@ class _LoginScreenState extends State<LoginScreen> {
               if (state is AuthSuccess) {
                 context.go(Routes.home);
               } else if (state is AuthError) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: Colors.red,
-                  ),
+                showTopSnackBar(
+                  Overlay.of(context),
+                  CustomSnackBar.error(message: state.message),
+                  displayDuration: const Duration(milliseconds: 300),
                 );
               }
             },
