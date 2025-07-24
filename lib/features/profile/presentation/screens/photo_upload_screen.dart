@@ -7,7 +7,7 @@ import 'package:shartflix/core/constants/app_colors.dart';
 import 'package:shartflix/core/utils/font_helper.dart';
 import 'package:shartflix/core/services/service_locator.dart';
 import 'package:shartflix/core/utils/localization_manager.dart';
-import 'package:shartflix/features/profile/presentation/viewmodels/profile_viewmodel.dart';
+import 'package:shartflix/features/profile/presentation/viewmodels/profile_view_model.dart';
 
 class PhotoUploadScreen extends StatefulWidget {
   const PhotoUploadScreen({super.key});

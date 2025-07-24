@@ -36,6 +36,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     }
   }
 
+  // TODO: Base bir error handling yapısı oluşturulacak. Bu yapı geçici olarak yazıldı.
   Exception _handleLoginError(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
@@ -55,6 +56,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     }
   }
 
+  // TODO: Base bir error handling yapısı oluşturulacak. Bu yapı geçici olarak yazıldı.
   Exception _handleRegisterError(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:

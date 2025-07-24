@@ -9,13 +9,7 @@ class HomeRepositoryImpl implements HomeRepository {
 
   @override
   Future<MovieListEntity> getMovies(int page) async {
-    try {
-      final movieResponseModel = await remoteDataSource.getMovies(page);
-      return movieResponseModel.toEntity();
-    } catch (e) {
-      // Here you could handle different types of exceptions and
-      // return a more specific Failure object, but for now, we rethrow.
-      rethrow;
-    }
+    final movieResponseModel = await remoteDataSource.getMovies(page);
+    return movieResponseModel.toEntity();
   }
-} 
+}

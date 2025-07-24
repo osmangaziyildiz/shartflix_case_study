@@ -7,7 +7,7 @@ import 'package:shartflix/features/auth/data/repositories/auth_repository_impl.d
 import 'package:shartflix/features/auth/domain/repositories/auth_repository.dart';
 import 'package:shartflix/features/auth/domain/usecases/login_usecase.dart';
 import 'package:shartflix/features/auth/domain/usecases/register_usecase.dart';
-import 'package:shartflix/features/auth/presentation/viewmodels/auth_viewmodel.dart';
+import 'package:shartflix/features/auth/presentation/viewmodels/auth_view_model.dart';
 // Profile feature imports
 import 'package:shartflix/features/profile/data/datasources/profile_remote_datasource.dart';
 import 'package:shartflix/features/profile/data/repositories/profile_repository_impl.dart';
@@ -15,12 +15,12 @@ import 'package:shartflix/features/profile/domain/repositories/profile_repositor
 import 'package:shartflix/features/profile/domain/usecases/get_profile_usecase.dart';
 import 'package:shartflix/features/profile/domain/usecases/upload_photo_usecase.dart';
 import 'package:shartflix/features/profile/domain/usecases/get_favorite_movies_usecase.dart';
-import 'package:shartflix/features/profile/presentation/viewmodels/profile_viewmodel.dart';
+import 'package:shartflix/features/profile/presentation/viewmodels/profile_view_model.dart';
 import 'package:shartflix/features/home/data/datasources/home_remote_datasource.dart';
 import 'package:shartflix/features/home/data/repositories/home_repository_impl.dart';
 import 'package:shartflix/features/home/domain/repositories/home_repository.dart';
 import 'package:shartflix/features/home/domain/usecases/get_movies_usecase.dart';
-import 'package:shartflix/features/home/presentation/viewmodels/home_bloc.dart';
+import 'package:shartflix/features/home/presentation/viewmodels/home_view_model.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -47,8 +47,8 @@ Future<void> setupServiceLocator() async {
   sl.registerFactory<RegisterUseCase>(
     () => RegisterUseCase(repository: sl<AuthRepository>()),
   );
-  sl.registerFactory<AuthViewmodel>(
-    () => AuthViewmodel(
+  sl.registerFactory<AuthViewModel>(
+    () => AuthViewModel(
       loginUseCase: sl<LoginUseCase>(),
       registerUseCase: sl<RegisterUseCase>(),
     ),
@@ -64,8 +64,8 @@ Future<void> setupServiceLocator() async {
   sl.registerFactory<GetMoviesUsecase>(
     () => GetMoviesUsecase(sl<HomeRepository>()),
   );
-  sl.registerFactory<HomeBloc>(
-    () => HomeBloc(getMoviesUsecase: sl()),
+  sl.registerFactory<HomeViewModel>(
+    () => HomeViewModel(getMoviesUsecase: sl()),
   );
 
   // Profile feature DI

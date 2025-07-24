@@ -5,10 +5,9 @@ import 'package:shartflix/core/constants/app_colors.dart';
 import 'package:shartflix/core/services/service_locator.dart';
 import 'package:shartflix/core/utils/font_helper.dart';
 import 'package:shartflix/core/utils/localization_manager.dart';
-import 'package:shartflix/features/home/presentation/viewmodels/home_bloc.dart';
+import 'package:shartflix/features/home/presentation/viewmodels/home_view_model.dart';
 import 'package:shartflix/features/home/presentation/viewmodels/home_event.dart';
 import 'package:shartflix/features/home/presentation/viewmodels/home_state.dart';
-import 'package:shartflix/features/profile/domain/entities/movie_entity.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => sl<HomeBloc>()..add(FetchMovies()),
+      create: (_) => sl<HomeViewModel>()..add(FetchMovies()),
       child: const _HomeView(),
     );
   }
@@ -48,7 +47,7 @@ class _HomeViewState extends State<_HomeView> {
 
   void _onScroll() {
     if (_isBottom) {
-      context.read<HomeBloc>().add(FetchMovies());
+      context.read<HomeViewModel>().add(FetchMovies());
     }
   }
 
@@ -78,7 +77,7 @@ class _HomeViewState extends State<_HomeView> {
       backgroundColor: AppColors.background,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.w),
-        child: BlocBuilder<HomeBloc, HomeState>(
+        child: BlocBuilder<HomeViewModel, HomeState>(
           builder: (context, state) {
             switch (state.status) {
               case HomeStatus.error:

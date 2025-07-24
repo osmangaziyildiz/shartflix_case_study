@@ -4,11 +4,11 @@ import 'package:shartflix/features/auth/domain/usecases/login_usecase.dart';
 import 'package:shartflix/features/auth/domain/usecases/register_usecase.dart';
 import 'package:shartflix/features/auth/presentation/viewmodels/auth_state.dart';
 
-class AuthViewmodel extends Cubit<AuthState> {
+class AuthViewModel extends Cubit<AuthState> {
   final LoginUseCase loginUseCase;
   final RegisterUseCase registerUseCase;
 
-  AuthViewmodel({required this.loginUseCase, required this.registerUseCase}) : super(AuthInitial());
+  AuthViewModel({required this.loginUseCase, required this.registerUseCase}) : super(AuthInitial());
 
   @override
   Future<void> close() {

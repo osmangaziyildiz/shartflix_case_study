@@ -3,11 +3,11 @@ import 'package:shartflix/features/home/domain/usecases/get_movies_usecase.dart'
 import 'package:shartflix/features/home/presentation/viewmodels/home_event.dart';
 import 'package:shartflix/features/home/presentation/viewmodels/home_state.dart';
 
-class HomeBloc extends Bloc<HomeEvent, HomeState> {
+class HomeViewModel extends Bloc<HomeEvent, HomeState> {
   final GetMoviesUsecase _getMoviesUsecase;
   bool _isFetching = false;
 
-  HomeBloc({required GetMoviesUsecase getMoviesUsecase})
+  HomeViewModel({required GetMoviesUsecase getMoviesUsecase})
     : _getMoviesUsecase = getMoviesUsecase,
       super(const HomeState()) {
     on<FetchMovies>(_onFetchMovies);

@@ -1,6 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shartflix/features/profile/domain/entities/user_profile_entity.dart';
-import 'package:shartflix/features/profile/domain/entities/movie_entity.dart';
 import 'package:shartflix/features/profile/domain/usecases/get_profile_usecase.dart';
 import 'package:shartflix/features/profile/domain/usecases/upload_photo_usecase.dart';
 import 'package:shartflix/features/profile/domain/usecases/get_favorite_movies_usecase.dart';

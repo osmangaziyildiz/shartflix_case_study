@@ -10,7 +10,7 @@ import 'package:shartflix/core/utils/font_helper.dart';
 import 'package:shartflix/features/auth/presentation/widgets/custom_text_field.dart';
 import 'package:shartflix/features/auth/presentation/widgets/custom_login_button.dart';
 import 'package:shartflix/features/auth/presentation/widgets/social_login_button.dart';
-import 'package:shartflix/features/auth/presentation/viewmodels/auth_viewmodel.dart';
+import 'package:shartflix/features/auth/presentation/viewmodels/auth_view_model.dart';
 import 'package:shartflix/features/auth/presentation/viewmodels/auth_state.dart';
 import 'package:shartflix/core/utils/localization_manager.dart';
 
@@ -38,7 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _onRegister(BuildContext context) {
-    context.read<AuthViewmodel>().register(
+    context.read<AuthViewModel>().register(
       email: _emailController.text.trim(),
       name: _nameController.text.trim(),
       password: _passwordController.text,
@@ -49,10 +49,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<AuthViewmodel>(),
+      create: (context) => sl<AuthViewModel>(),
       child: Builder(
         builder: (context) {
-          return BlocListener<AuthViewmodel, AuthState>(
+          return BlocListener<AuthViewModel, AuthState>(
             listener: (context, state) {
               if (state is AuthSuccess) {
                 context.go(Routes.home);
@@ -187,7 +187,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       SizedBox(height: 38.h),
                       // Kayıt Ol Butonu
-                      BlocBuilder<AuthViewmodel, AuthState>(
+                      BlocBuilder<AuthViewModel, AuthState>(
                         builder: (context, state) {
                           return CustomLoginButton(
                             text: 'Şimdi Kaydol'.localized,

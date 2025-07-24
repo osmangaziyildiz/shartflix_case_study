@@ -10,7 +10,7 @@ import 'package:shartflix/core/services/service_locator.dart';
 import 'package:shartflix/features/auth/presentation/widgets/custom_text_field.dart';
 import 'package:shartflix/features/auth/presentation/widgets/custom_login_button.dart';
 import 'package:shartflix/features/auth/presentation/widgets/social_login_button.dart';
-import 'package:shartflix/features/auth/presentation/viewmodels/auth_viewmodel.dart';
+import 'package:shartflix/features/auth/presentation/viewmodels/auth_view_model.dart';
 import 'package:shartflix/features/auth/presentation/viewmodels/auth_state.dart';
 import 'package:shartflix/core/utils/localization_manager.dart';
 
@@ -35,10 +35,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<AuthViewmodel>(),
+      create: (context) => sl<AuthViewModel>(),
       child: Builder(
         builder: (context) {
-          return BlocListener<AuthViewmodel, AuthState>(
+          return BlocListener<AuthViewModel, AuthState>(
             listener: (context, state) {
               if (state is AuthSuccess) {
                 context.go(Routes.home);
@@ -143,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(height: 14.h),
 
                       // Login Button
-                      BlocBuilder<AuthViewmodel, AuthState>(
+                      BlocBuilder<AuthViewModel, AuthState>(
                         builder: (context, state) {
                           return CustomLoginButton(
                             text: 'Giriş Yap'.localized,
@@ -152,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 state is AuthLoading
                                     ? () {}
                                     : () {
-                                      context.read<AuthViewmodel>().login(
+                                      context.read<AuthViewModel>().login(
                                         email: _emailController.text.trim(),
                                         password: _passwordController.text,
                                       );

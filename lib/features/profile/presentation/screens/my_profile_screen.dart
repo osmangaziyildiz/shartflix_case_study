@@ -10,7 +10,7 @@ import 'package:shartflix/core/utils/localization_manager.dart';
 import 'package:shartflix/features/profile/presentation/widgets/profile_top_bar.dart';
 import 'package:shartflix/features/profile/presentation/widgets/profile_section.dart';
 import 'package:shartflix/features/profile/presentation/widgets/profile_favorite_films.dart';
-import 'package:shartflix/features/profile/presentation/viewmodels/profile_viewmodel.dart';
+import 'package:shartflix/features/profile/presentation/viewmodels/profile_view_model.dart';
 import 'package:shartflix/features/profile/presentation/viewmodels/profile_state.dart';
 
 class MyProfileScreen extends StatefulWidget {
