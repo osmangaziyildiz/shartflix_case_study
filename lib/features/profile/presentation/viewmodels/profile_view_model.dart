@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shartflix/core/error/exceptions.dart';
 import 'package:shartflix/core/services/service_locator.dart';
+import 'package:shartflix/core/utils/localization_manager.dart';
 import 'package:shartflix/features/profile/domain/usecases/get_favorite_movies_usecase.dart';
 import 'package:shartflix/features/profile/domain/usecases/get_profile_usecase.dart';
 import 'package:shartflix/features/profile/domain/usecases/upload_photo_usecase.dart';
@@ -22,7 +24,9 @@ class ProfileViewModel extends Cubit<ProfileState> {
   }
 
   void _listenToFavoriteUpdates() {
-    _favoriteUpdateSubscription = sl<StreamController<String>>().stream.listen((event) {
+    _favoriteUpdateSubscription = sl<StreamController<String>>().stream.listen((
+      event,
+    ) {
       if (event == 'favorites_updated') {
         fetchFavoriteMovies();
       }
@@ -38,15 +42,23 @@ class ProfileViewModel extends Cubit<ProfileState> {
   Future<void> fetchFavoriteMovies() async {
     try {
       final movies = await getFavoriteMoviesUseCase();
-      emit(state.copyWith(
-        status: ProfileStatus.success,
-        favoriteMovies: movies,
-      ));
+      emit(
+        state.copyWith(status: ProfileStatus.success, favoriteMovies: movies),
+      );
+    } on ServerException catch (e) {
+      emit(
+        state.copyWith(
+          status: ProfileStatus.error,
+          errorMessage: e.message.localized,
+        ),
+      );
     } catch (e) {
-      emit(state.copyWith(
-        status: ProfileStatus.error,
-        errorMessage: e.toString().replaceFirst('Exception: ', ''),
-      ));
+      emit(
+        state.copyWith(
+          status: ProfileStatus.error,
+          errorMessage: 'Beklenmedik bir hata oluştu'.localized,
+        ),
+      );
     }
   }
 
@@ -62,25 +74,42 @@ class ProfileViewModel extends Cubit<ProfileState> {
           favoriteMovies: movies,
         ),
       );
+    } on ServerException catch (e) {
+      emit(
+        state.copyWith(
+          status: ProfileStatus.error,
+          errorMessage: e.message.localized,
+        ),
+      );
     } catch (e) {
-      emit(state.copyWith(
-        status: ProfileStatus.error,
-        errorMessage: e.toString().replaceFirst('Exception: ', ''),
-      ));
+      emit(
+        state.copyWith(
+          status: ProfileStatus.error,
+          errorMessage: 'Beklenmedik bir hata oluştu'.localized,
+        ),
+      );
     }
   }
 
   Future<void> uploadPhoto(File file) async {
     try {
-      // Here we want a loading indicator
       emit(state.copyWith(status: ProfileStatus.loading));
       await uploadPhotoUseCase(file);
-      await fetchProfile(); // This will handle the subsequent state updates
+      await fetchProfile();
+    } on ServerException catch (e) {
+      emit(
+        state.copyWith(
+          status: ProfileStatus.error,
+          errorMessage: e.message.localized,
+        ),
+      );
     } catch (e) {
-      emit(state.copyWith(
-        status: ProfileStatus.error,
-        errorMessage: e.toString().replaceFirst('Exception: ', ''),
-      ));
+      emit(
+        state.copyWith(
+          status: ProfileStatus.error,
+          errorMessage: 'Beklenmedik bir hata oluştu'.localized,
+        ),
+      );
     }
   }
 }

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shartflix/core/constants/app_colors.dart';
+import 'package:shartflix/core/constants/app_icons.dart';
 import 'package:shartflix/core/services/service_locator.dart';
 import 'package:shartflix/core/utils/font_helper.dart';
+import 'package:shartflix/core/utils/localization_manager.dart';
 import 'package:shartflix/features/home/presentation/viewmodels/home_event.dart';
 import 'package:shartflix/features/home/presentation/viewmodels/home_state.dart';
 import 'package:shartflix/features/home/presentation/viewmodels/home_view_model.dart';
@@ -91,19 +93,29 @@ class _MoviePageItemState extends State<_MoviePageItem>
   late final AnimationController _animationController;
   late final Animation<double> _scaleAnimation;
   late final Animation<double> _rotationAnimation;
+  String _plotText = '';
+  bool _showReadMore = false;
 
   @override
   void initState() {
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1600),
+      duration: const Duration(milliseconds: 1000),
     );
 
     _scaleAnimation = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween<double>(begin: 1.0, end: 2.0), weight: 40.0),
-      TweenSequenceItem(tween: Tween<double>(begin: 2.0, end: 1.0), weight: 60.0),
-    ]).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeOut));
+      TweenSequenceItem(
+        tween: Tween<double>(begin: 1.0, end: 1.5),
+        weight: 40.0,
+      ),
+      TweenSequenceItem(
+        tween: Tween<double>(begin: 1.5, end: 1.0),
+        weight: 60.0,
+      ),
+    ]).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeOut),
+    );
 
     _rotationAnimation = TweenSequence<double>([
       TweenSequenceItem(tween: ConstantTween(0.0), weight: 40.0),
@@ -120,7 +132,72 @@ class _MoviePageItemState extends State<_MoviePageItem>
         _animationController.reset();
       }
     });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _calculateText();
+    });
   }
+
+  void _calculateText() {
+    if (!mounted) return;
+
+    final availableWidth =
+        MediaQuery.of(context).size.width - 40.w - 45.w - 12.w;
+
+    final plotSpan = TextSpan(text: widget.movie.plot, style: _plotTextStyle);
+
+    final readMoreSpan = TextSpan(
+      text: ' Daha Fazlası'.localized,
+      style: _readMoreTextStyle,
+    );
+
+    final fullTextPainter = TextPainter(
+      text: TextSpan(children: [plotSpan, readMoreSpan]),
+      maxLines: 2,
+      textDirection: TextDirection.ltr,
+    )..layout(maxWidth: availableWidth);
+
+    if (fullTextPainter.didExceedMaxLines) {
+      final plotOnlyPainter = TextPainter(
+        text: plotSpan,
+        maxLines: 2,
+        textDirection: TextDirection.ltr,
+      )..layout(maxWidth: availableWidth);
+
+      final readMoreSize = TextPainter(
+        text: readMoreSpan,
+        textDirection: TextDirection.ltr,
+      )..layout();
+      final truncationWidth = plotOnlyPainter.width - readMoreSize.width - 15.w;
+
+      final endOffset =
+          plotOnlyPainter
+              .getPositionForOffset(
+                Offset(truncationWidth, plotOnlyPainter.height),
+              )
+              .offset;
+
+      setState(() {
+        _plotText = '${widget.movie.plot.substring(0, endOffset)}...';
+        _showReadMore = true;
+      });
+    } else {
+      setState(() {
+        _plotText = widget.movie.plot;
+        _showReadMore = false;
+      });
+    }
+  }
+
+  TextStyle get _plotTextStyle => TextStyle(
+    fontFamily: FontHelper.euclidCircularA().fontFamily,
+    color: Colors.white.withValues(alpha: 0.75),
+    fontWeight: FontWeight.w400,
+    fontSize: 13.sp,
+    shadows: const [Shadow(blurRadius: 2, color: Colors.black54)],
+  );
+
+  TextStyle get _readMoreTextStyle =>
+      _plotTextStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.white);
 
   @override
   void dispose() {
@@ -135,7 +212,7 @@ class _MoviePageItemState extends State<_MoviePageItem>
       children: [
         // Background Image
         Image.network(
-          widget.movie.cover,
+          widget.movie.poster,
           fit: BoxFit.cover,
           errorBuilder:
               (context, error, stackTrace) => Container(
@@ -162,9 +239,10 @@ class _MoviePageItemState extends State<_MoviePageItem>
           left: 20.w,
           right: 20.w,
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Movie Info
+              Image.asset(AppIcons.filmIcon, width: 40.w, height: 40.h),
+              SizedBox(width: 12.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,48 +253,28 @@ class _MoviePageItemState extends State<_MoviePageItem>
                       style: TextStyle(
                         fontFamily: FontHelper.euclidCircularA().fontFamily,
                         color: Colors.white,
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600,
                         shadows: const [
                           Shadow(blurRadius: 4, color: Colors.black54),
                         ],
                       ),
                     ),
-                    SizedBox(height: 8.h),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            widget.movie.plot,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontFamily:
-                                  FontHelper.euclidCircularA().fontFamily,
-                              color: Colors.white.withValues(alpha: 0.9),
-                              fontSize: 14.sp,
-                              shadows: const [
-                                Shadow(blurRadius: 2, color: Colors.black54),
-                              ],
+                    RichText(
+                      maxLines: 2,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(text: _plotText, style: _plotTextStyle),
+                          if (_showReadMore)
+                            TextSpan(
+                              text: ' Daha Fazlası'.localized,
+                              style: _readMoreTextStyle,
+                              // TODO: Daha sonra detay sayfası eklenebilir.
                             ),
-                          ),
-                        ),
-                        SizedBox(width: 8.w),
-                        Text(
-                          'Daha Fazlası',
-                          style: TextStyle(
-                            fontFamily: FontHelper.euclidCircularA().fontFamily,
-                            color: Colors.white,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.bold,
-                            shadows: const [
-                              Shadow(blurRadius: 2, color: Colors.black54),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
+                    SizedBox(height: 14.h),
                   ],
                 ),
               ),
@@ -280,7 +338,7 @@ class _MoviePageItemState extends State<_MoviePageItem>
                                 : Icons.favorite_border,
                             color:
                                 widget.movie.isFavorite
-                                    ? AppColors.primary
+                                    ? Colors.white
                                     : Colors.white,
                             size: 24.sp,
                           ),

@@ -1,11 +1,12 @@
 ## NOTLAR
 
-- Film datasındaki "Poster" parametresinde gelen bazı linkler kırık olduğu (çalışmadığı) için "Images" listesindeki ilk görselleri kullandım ana sayfada.
+- Film datasındaki "Poster" parametresinde gelen bazı linkler kırık olduğu (çalışmadığı) için "Images" listesindeki ilk görselleri kullandım profil sayfasında.
 - Profil sekmesine her geçişte gereksiz durumlarda bile filmler ve profil bilgileri çekilmemesi adına bir Stream yapısı kurdum. Bu stream yapısı sadece bir değişiklik olduğu zaman "favori filmler veya profil bilgileri" çekmek için istek atıp rebuild oluyor.
 Yani kullanıcı her "Profil" sekmesine geçtiğinde gereksiz yere API isteği yapılmıyor. Bu sayede daha akıcı ve performanslı bir state yönetimi sağladım.
 - Favori ekleme butonuna animasyon ekledim.
 - Performans optimizasyonu için LayoutBuilder kullandım.
 - Projede hakkında genel bir bilgi sağlaması açısından projenin kök dizinine "docs" adında bir klasör oluşturdum, bu klasörde teknik dökümantasyonlar yer almakta.
+- Paywall ekranındaki tüm gradyan efekler, renkler, bileşenler vs. flutter kodu ile yazılmış hiç birinde hazır figma görseli kullanılmamıştır.
 
 ## MİMARİ VE PROJE YAPISI HAKKINDA
 

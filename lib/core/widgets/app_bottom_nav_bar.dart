@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shartflix/core/constants/app_colors.dart';
 import 'package:shartflix/core/utils/font_helper.dart';
+import 'package:shartflix/core/utils/localization_manager.dart';
 
 class AppBottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -17,7 +18,7 @@ class AppBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.background,
-      padding: EdgeInsets.only(bottom: 16.h, top: 8.h),
+      padding: EdgeInsets.only(bottom: 16.h, top: 12.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -81,7 +82,7 @@ class _NavBarItem extends StatelessWidget {
             ),
             SizedBox(width: 8.w),
             Text(
-              label,
+              label.localized,
               style: TextStyle(
                 fontFamily: FontHelper.euclidCircularA().fontFamily,
                 color: AppColors.textPrimary,

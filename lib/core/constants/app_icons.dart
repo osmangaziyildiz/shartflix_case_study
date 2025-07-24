@@ -9,4 +9,7 @@ class AppIcons {
   static const String unlockIcon = 'assets/icons/unlock_icon.png';
   static const String emailIcon = 'assets/icons/email_icon.png';
   static const String userIcon = 'assets/icons/user_icon.png';
+
+  // Home Icons
+  static const String filmIcon = 'assets/icons/film_icon.png';
 }

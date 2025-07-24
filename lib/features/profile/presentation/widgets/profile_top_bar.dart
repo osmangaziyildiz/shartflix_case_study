@@ -5,6 +5,7 @@ import 'package:shartflix/core/constants/app_colors.dart';
 import 'package:shartflix/core/navigation/app_routes.dart';
 import 'package:shartflix/core/utils/font_helper.dart';
 import 'package:shartflix/core/utils/localization_manager.dart';
+import 'package:shartflix/features/profile/presentation/widgets/premium_offer_sheet.dart';
 
 class ProfileTopBar extends StatelessWidget {
   const ProfileTopBar({super.key});
@@ -50,27 +51,38 @@ class ProfileTopBar extends StatelessWidget {
         ),
         Align(
           alignment: Alignment.centerRight,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-            decoration: BoxDecoration(
-              color: AppColors.primary,
-              borderRadius: BorderRadius.circular(22.r),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset('assets/icons/diamond_icon.png', width: 16.w, height: 16.h),
-                SizedBox(width: 6.w),
-                Text(
-                  'Sınırlı Teklif'.localized,
-                  style: TextStyle(
-                    fontFamily: FontHelper.euclidCircularA().fontFamily,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12.sp,
+          child: GestureDetector(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                backgroundColor: Colors.transparent,
+                isScrollControlled: true,
+                useRootNavigator: true,
+                builder: (context) => const PremiumOfferSheet(),
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+              decoration: BoxDecoration(
+                color: AppColors.primary,
+                borderRadius: BorderRadius.circular(22.r),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset('assets/icons/diamond_icon.png', width: 16.w, height: 16.h),
+                  SizedBox(width: 6.w),
+                  Text(
+                    'Sınırlı Teklif'.localized,
+                    style: TextStyle(
+                      fontFamily: FontHelper.euclidCircularA().fontFamily,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: Localizations.localeOf(context).languageCode == 'en' ? 10.sp : 12.sp,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

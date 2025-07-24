@@ -59,7 +59,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       Expanded(
                         child: Center(
                           child: Text(
-                            'Profil bilgileri yüklenemedi :('.localized,
+                            state.errorMessage?.localized ?? 'Beklenmedik bir hata oluştu'.localized,
                             style: TextStyle(
                               fontFamily:
                                   FontHelper.euclidCircularA().fontFamily,

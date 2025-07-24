@@ -90,6 +90,7 @@ class MovieModel {
       genre: genre,
       plot: plot,
       isFavorite: isFavorite,
+      poster: poster,
     );
   }
 } 

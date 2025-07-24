@@ -1,24 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:go_router/go_router.dart';
 import 'package:shartflix/core/constants/app_colors.dart';
 import 'package:shartflix/core/utils/font_helper.dart';
 import 'package:shartflix/core/services/service_locator.dart';
 import 'package:shartflix/core/utils/localization_manager.dart';
 import 'package:shartflix/features/profile/presentation/viewmodels/profile_view_model.dart';
+import 'package:shartflix/features/profile/presentation/viewmodels/profile_state.dart';
 
-class PhotoUploadScreen extends StatefulWidget {
+class PhotoUploadScreen extends StatelessWidget {
   const PhotoUploadScreen({super.key});
 
   @override
-  State<PhotoUploadScreen> createState() => _PhotoUploadScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => sl<ProfileViewModel>(),
+      child: const _PhotoUploadView(),
+    );
+  }
 }
 
-class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
+class _PhotoUploadView extends StatefulWidget {
+  const _PhotoUploadView();
+
+  @override
+  State<_PhotoUploadView> createState() => _PhotoUploadViewState();
+}
+
+class _PhotoUploadViewState extends State<_PhotoUploadView> {
   File? _selectedImage;
-  bool _isLoading = false;
 
   Future<void> _pickImage() async {
     final picker = ImagePicker();
@@ -30,20 +43,27 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
     }
   }
 
-  Future<void> _upload(BuildContext context) async {
+  void _upload() {
     if (_selectedImage == null) return;
-    setState(() => _isLoading = true);
-    final viewModel = sl<ProfileViewModel>();
-    await viewModel.uploadPhoto(_selectedImage!);
-    setState(() => _isLoading = false);
-    if (context.mounted) {
-      context.pop();
-    }
+    context.read<ProfileViewModel>().uploadPhoto(_selectedImage!);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocListener<ProfileViewModel, ProfileState>(
+      listener: (context, state) {
+        if (state.status == ProfileStatus.success) {
+          context.pop();
+        } else if (state.status == ProfileStatus.error && state.errorMessage != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage!),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      },
+      child: Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: Padding(
@@ -68,7 +88,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                       child: IconButton(
                         icon: Icon(Icons.arrow_back, color: AppColors.textPrimary, size: 20.sp),
                         onPressed: () {
-                          Navigator.of(context).pop();
+                            context.pop();
                         },
                       ),
                     ),
@@ -139,7 +159,10 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                 child: SizedBox(
                   width: double.infinity,
                   height: 50.h,
-                  child: ElevatedButton(
+                    child: BlocBuilder<ProfileViewModel, ProfileState>(
+                      builder: (context, state) {
+                        final isLoading = state.status == ProfileStatus.loading;
+                        return ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       shape: RoundedRectangleBorder(
@@ -147,9 +170,9 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                       ),
                       elevation: 0,
                     ),
-                    onPressed: _isLoading ? null : () => _upload(context),
-                    child: _isLoading
-                        ? const CircularProgressIndicator(color: Colors.white)
+                          onPressed: isLoading ? null : _upload,
+                          child: isLoading
+                              ? const CircularProgressIndicator()
                         : Text(
                             'Devam Et'.localized,
                             style: TextStyle(
@@ -158,11 +181,14 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                               fontWeight: FontWeight.w500,
                               fontSize: 15.sp,
                             ),
+                                ),
+                        );
+                      },
                           ),
                   ),
                 ),
+              ],
               ),
-            ],
           ),
         ),
       ),

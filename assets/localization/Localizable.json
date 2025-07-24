@@ -246,5 +246,83 @@
       "tr": "Beklenmedik bir hata oluştu, lütfen daha sonra tekrar deneyiniz",
       "en": "An unexpected error occurred, please try again later"
     }
+  },
+  "Anasayfa": {
+    "localizations": {
+      "tr": "Anasayfa",
+      "en": "Home"
+    }
+  },
+  "Profil": {
+    "localizations": {
+      "tr": "Profil",
+      "en": "Profile"
+    }
+  },
+  " Daha Fazlası": {
+    "localizations": {
+      "tr": " Daha Fazlası",
+      "en": " More"
+    }
+  },
+  "Başına haftalık": {
+    "localizations": {
+      "tr": "Başına haftalık",
+      "en": "Per Week"
+    }
+  },
+  "Jeton": {
+    "localizations": {
+      "tr": "Jeton",
+      "en": "Jeton"
+    }
+  },
+  "Kilidi açmak için bir jeton paketi seçin": {
+    "localizations": {
+      "tr": "Kilidi açmak için bir jeton paketi seçin",
+      "en": "Select a jeton package to unlock new episodes!"
+    }
+  },
+  "Jeton paketini seçerek bonus\nkazanın ve yeni bölümlerin kilidini açın!": {
+    "localizations": {
+      "tr": "Jeton paketini seçerek bonus\nkazanın ve yeni bölümlerin kilidini açın!",
+      "en": "Select a jeton package to earn bonus\nand unlock new episodes!"
+    }
+  },
+  "Premium\nHesap": {
+    "localizations": {
+      "tr": "Premium\nHesap",
+      "en": "Premium\nAccount"
+    }
+  },
+  "Daha Fazla\nEşleşme": {
+    "localizations": {
+      "tr": "Daha Fazla\nEşleşme",
+      "en": "More\nMatches"
+    }
+  },
+  "Öne\nÇıkarma": {
+    "localizations": {
+      "tr": "Öne\nÇıkarma",
+      "en": "Featured\n"
+    }
+  },
+  "Daha Fazla\nBeğeni": {
+    "localizations": {
+      "tr": "Daha Fazla\nBeğeni",
+      "en": "More\nLikes"
+    }
+  },
+  "Tüm Jetonları Gör": {
+    "localizations": {
+      "tr": "Tüm Jetonları Gör",
+      "en": "View All Jeton"
+    }
+  },
+  "Alacağınız Bonuslar": {
+    "localizations": {
+      "tr": "Alacağınız Bonuslar",
+      "en": "What You'll Get"
+    }
   }
 }

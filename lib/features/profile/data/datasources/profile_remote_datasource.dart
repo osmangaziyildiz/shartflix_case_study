@@ -1,4 +1,6 @@
+import 'package:shartflix/core/error/exceptions.dart';
 import 'package:shartflix/core/network/api_endpoints.dart';
+import 'package:shartflix/core/utils/localization_manager.dart';
 import 'package:shartflix/features/profile/data/models/user_profile_model.dart';
 import 'package:shartflix/features/profile/data/models/movie_model.dart';
 import 'package:dio/dio.dart';
@@ -20,7 +22,11 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       final response = await dio.get(ApiEndPoints.myProfile);
       return UserProfileModel.fromJson(response.data['data']);
     } on DioException catch (e) {
-      throw Exception('Profil bilgisi alınamadı: ${e.message}');
+      throw ServerException.fromDioException(e, customMessages: {
+        400: 'Beklenmedik bir hata oluştu'.localized,
+        401: 'Lütfen hesabınızdan çıkıp tekrar giriş yapınız'.localized,
+        500: 'Sunucuda bir sorun oluştu, lütfen daha sonra tekrar deneyin.'.localized,
+      });
     }
   }
 
@@ -33,7 +39,11 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       final response = await dio.post(ApiEndPoints.uploadPhoto, data: formData);
       return UserProfileModel.fromJson(response.data['data']);
     } on DioException catch (e) {
-      throw Exception('Fotoğraf yüklenemedi: ${e.message}');
+      throw ServerException.fromDioException(e, customMessages: {
+        400: 'Beklenmedik bir hata oluştu'.localized,
+        401: 'Lütfen hesabınızdan çıkıp tekrar giriş yapınız'.localized,
+        500: 'Sunucuda bir sorun oluştu, lütfen daha sonra tekrar deneyin.'.localized,
+      });
     }
   }
 
@@ -44,7 +54,11 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       final data = response.data['data'] as List;
       return data.map((json) => MovieModel.fromJson(json)).toList();
     } on DioException catch (e) {
-      throw Exception('Favori filmler alınamadı: ${e.message}');
+      throw ServerException.fromDioException(e, customMessages: {
+        400: 'Beklenmedik bir hata oluştu'.localized,
+        401: 'Lütfen hesabınızdan çıkıp tekrar giriş yapınız'.localized,
+        500: 'Sunucuda bir sorun oluştu, lütfen daha sonra tekrar deneyin.'.localized,
+      });
     }
   }
 } 

@@ -12,7 +12,7 @@ class RouteManager {
   static GoRouter get router => _router;
 
   static final GoRouter _router = GoRouter(
-    initialLocation: Routes.login,
+    initialLocation: Routes.home,
     routes: [
       // --- TABS: Home & Profile ---
       StatefulShellRoute.indexedStack(
