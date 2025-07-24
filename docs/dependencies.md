@@ -1,4 +1,4 @@
-# Proje paketleri
+# Kullanılan paketleri
 
 get_it: ^8.0.3 // Bağımlılık enjeksiyonu için
 
@@ -15,3 +15,5 @@ flutter_screenutil: ^5.9.3 // Responsive tasarım için
 image_picker: ^1.1.2 // Cihazdan görsel seçmek için
 
 cached_network_image: ^3.4.1 // Görselleri ön bellekte cachelemek  için
+
+equatable: ^2.0.7 // Modellerideki, state'lerdeki nesneleri karşılaştırmak ve state karmaşası + gereksiz rebuild'leri önlemek için.

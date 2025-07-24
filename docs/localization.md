@@ -32,7 +32,7 @@ Text('Hoş Geldiniz'.localized)
 
 ## Dil Seçimi
 - Cihaz dilini otomatik algılar
-- Desteklenmeyen diller için İngilizce fallback
+- Desteklenmeyen diller için Türkçe fallback
 - Varsayılan dil: Türkçe
 
 **Not:** Yeni metin eklerken hem JSON'a hem kod'a aynı key'i yazman yeterli!
