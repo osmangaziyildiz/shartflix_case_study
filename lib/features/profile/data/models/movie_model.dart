@@ -84,9 +84,12 @@ class MovieModel {
 
   MovieEntity toEntity() {
     return MovieEntity(
+      id: id,
       cover: images.isNotEmpty ? images.first : '',
       title: title,
       genre: genre,
+      plot: plot,
+      isFavorite: isFavorite,
     );
   }
 } 

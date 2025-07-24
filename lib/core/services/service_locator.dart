@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get_it/get_it.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shartflix/core/network/dio_client.dart';
@@ -20,13 +22,21 @@ import 'package:shartflix/features/home/data/datasources/home_remote_datasource.
 import 'package:shartflix/features/home/data/repositories/home_repository_impl.dart';
 import 'package:shartflix/features/home/domain/repositories/home_repository.dart';
 import 'package:shartflix/features/home/domain/usecases/get_movies_usecase.dart';
+import 'package:shartflix/features/home/domain/usecases/toggle_favorite_usecase.dart';
 import 'package:shartflix/features/home/presentation/viewmodels/home_view_model.dart';
 
 final GetIt sl = GetIt.instance;
 
 Future<void> setupServiceLocator() async {
+  // Core
   sl.registerSingleton<DioClient>(DioClient.instance);
   sl.registerSingleton<FlutterSecureStorage>(const FlutterSecureStorage());
+
+  // Bu stream sadece favori filmler veya profil bilgileri değiştiğinde rebuild oluyor.
+  // Bu sayede kullanıcı her "Profil" sekmesine geçtiğinde gereksiz yere API isteği yapılmıyor.
+  sl.registerLazySingleton<StreamController<String>>(
+    () => StreamController<String>.broadcast(),
+  );
 
   // Auth feature DI
   sl.registerFactory<AuthRemoteDataSource>(
@@ -64,8 +74,14 @@ Future<void> setupServiceLocator() async {
   sl.registerFactory<GetMoviesUsecase>(
     () => GetMoviesUsecase(sl<HomeRepository>()),
   );
+  sl.registerFactory<ToggleFavoriteUsecase>(
+    () => ToggleFavoriteUsecase(sl<HomeRepository>()),
+  );
   sl.registerFactory<HomeViewModel>(
-    () => HomeViewModel(getMoviesUsecase: sl()),
+    () => HomeViewModel(
+      getMoviesUsecase: sl(),
+      toggleFavoriteUsecase: sl(),
+    ),
   );
 
   // Profile feature DI

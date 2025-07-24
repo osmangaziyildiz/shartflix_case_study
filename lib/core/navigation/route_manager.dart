@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shartflix/features/auth/presentation/screens/login_screen.dart';
 import 'package:shartflix/core/navigation/app_routes.dart';
 import 'package:shartflix/features/auth/presentation/screens/register_screen.dart';
-import 'package:shartflix/features/home/presentation/screens/home_screen.dart';
+import 'package:shartflix/features/home/presentation/screens/discover_screen.dart';
 import 'package:shartflix/features/profile/presentation/screens/my_profile_screen.dart';
 import 'package:shartflix/core/widgets/app_bottom_nav_bar.dart';
 import 'package:shartflix/features/profile/presentation/screens/photo_upload_screen.dart';
@@ -12,7 +12,7 @@ class RouteManager {
   static GoRouter get router => _router;
 
   static final GoRouter _router = GoRouter(
-    initialLocation: Routes.home,
+    initialLocation: Routes.login,
     routes: [
       // --- TABS: Home & Profile ---
       StatefulShellRoute.indexedStack(
@@ -32,7 +32,7 @@ class RouteManager {
               GoRoute(
                 path: Routes.home,
                 name: 'home',
-                builder: (context, state) => const HomeScreen(),
+                builder: (context, state) => const DiscoverScreen(),
               ),
             ],
           ),

@@ -17,7 +17,7 @@ class AppBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.background,
-      padding: EdgeInsets.only(bottom: 18.h),
+      padding: EdgeInsets.only(bottom: 16.h, top: 8.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -61,7 +61,7 @@ class _NavBarItem extends StatelessWidget {
         width: 120.w,
         duration: const Duration(milliseconds: 180),
         curve: Curves.ease,
-        padding: EdgeInsets.symmetric(vertical: 8.h),
+        padding: EdgeInsets.symmetric(vertical: 4.h),
         decoration: BoxDecoration(
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(32.r),

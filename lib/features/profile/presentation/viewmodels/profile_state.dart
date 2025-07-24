@@ -1,19 +1,36 @@
-import 'package:shartflix/features/profile/domain/entities/user_profile_entity.dart';
+import 'package:equatable/equatable.dart';
 import 'package:shartflix/features/profile/domain/entities/movie_entity.dart';
+import 'package:shartflix/features/profile/domain/entities/user_profile_entity.dart';
 
-abstract class ProfileState {}
+enum ProfileStatus { initial, loading, success, error }
 
-class ProfileInitial extends ProfileState {}
-
-class ProfileLoading extends ProfileState {}
-
-class ProfileLoaded extends ProfileState {
-  final UserProfileEntity user;
+class ProfileState extends Equatable {
+  final ProfileStatus status;
+  final UserProfileEntity? user;
   final List<MovieEntity> favoriteMovies;
-  ProfileLoaded({required this.user, required this.favoriteMovies});
-}
+  final String? errorMessage;
 
-class ProfileError extends ProfileState {
-  final String message;
-  ProfileError(this.message);
+  const ProfileState({
+    this.status = ProfileStatus.initial,
+    this.user,
+    this.favoriteMovies = const [],
+    this.errorMessage,
+  });
+
+  ProfileState copyWith({
+    ProfileStatus? status,
+    UserProfileEntity? user,
+    List<MovieEntity>? favoriteMovies,
+    String? errorMessage,
+  }) {
+    return ProfileState(
+      status: status ?? this.status,
+      user: user ?? this.user,
+      favoriteMovies: favoriteMovies ?? this.favoriteMovies,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
+
+  @override
+  List<Object?> get props => [status, user, favoriteMovies, errorMessage];
 }

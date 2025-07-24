@@ -3,14 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shartflix/core/services/service_locator.dart';
 import 'package:shartflix/core/utils/localization_manager.dart';
 import 'package:shartflix/core/navigation/route_manager.dart';
+import 'package:shartflix/core/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Initialize services
   await setupServiceLocator();
   await LocalizationManager.init();
-  
+
   runApp(const MyApp());
 }
 
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
           title: 'Shartflix',
-          theme: ThemeData(useMaterial3: true),
+          theme: AppTheme.mainTheme,
           routerConfig: RouteManager.router,
         );
       },

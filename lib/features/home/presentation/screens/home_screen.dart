@@ -55,7 +55,6 @@ class _HomeViewState extends State<_HomeView> {
     if (!_scrollController.hasClients) return false;
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
-    // Trigger loading when 90% of the page is scrolled
     return currentScroll >= (maxScroll * 0.9);
   }
 
@@ -81,55 +80,68 @@ class _HomeViewState extends State<_HomeView> {
           builder: (context, state) {
             switch (state.status) {
               case HomeStatus.error:
-                return Center(child: Text('Fimler Yüklenemedi :('.localized,style: TextStyle(
-                  fontFamily: FontHelper.euclidCircularA().fontFamily,
-                  color: AppColors.textPrimary,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13.sp,
-                ),));
+                return Center(
+                  child: Text(
+                    'Fimler Yüklenemedi :('.localized,
+                    style: TextStyle(
+                      fontFamily: FontHelper.euclidCircularA().fontFamily,
+                      color: AppColors.textPrimary,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13.sp,
+                    ),
+                  ),
+                );
               case HomeStatus.loading:
                 return const Center(child: CircularProgressIndicator());
               case HomeStatus.success:
               case HomeStatus.loadingMore:
                 if (state.movies.isEmpty) {
-                  return Center(child: Text('Gösterilecek film bulunamadı.'.localized,style: TextStyle(
-                  fontFamily: FontHelper.euclidCircularA().fontFamily,
-                  color: AppColors.textPrimary,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13.sp,
-                ),));
-                }
-                return LayoutBuilder(
-                  builder: (context, constraints) {
-                    final double cardWidth = (constraints.maxWidth - 14.w) / 2;
-                    return SingleChildScrollView(
-                      controller: _scrollController,
-                      padding: EdgeInsets.symmetric(vertical: 12.h),
-                      child: Column(
-                        children: [
-                          Wrap(
-                            spacing: 14.w,
-                            runSpacing: 18.h,
-                            children: state.movies.map((movie) {
-                              return SizedBox(
-                                width: cardWidth,
-                                child: _MovieCard(
-                                  image: movie.cover,
-                                  title: movie.title,
-                                  subtitle: movie.genre,
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                          if (state.status == HomeStatus.loadingMore)
-                            Padding(
-                              padding: EdgeInsets.only(top: 16.h),
-                              child: const CircularProgressIndicator(),
-                            ),
-                        ],
+                  return Center(
+                    child: Text(
+                      'Gösterilecek film bulunamadı.'.localized,
+                      style: TextStyle(
+                        fontFamily: FontHelper.euclidCircularA().fontFamily,
+                        color: AppColors.textPrimary,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13.sp,
                       ),
-                    );
+                    ),
+                  );
+                }
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    context.read<HomeViewModel>().add(RefreshMovies());
                   },
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
+                    itemCount:
+                        state.status == HomeStatus.loadingMore
+                            ? state.movies.length + 1
+                            : state.movies.length,
+                    itemBuilder: (context, index) {
+                      if (index >= state.movies.length) {
+                        return const Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }
+                      final movie = state.movies[index];
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 24.w,
+                          vertical: 8.h,
+                        ),
+                        child: _MovieCard(
+                          image: movie.cover,
+                          title: movie.title,
+                          subtitle: movie.genre,
+                        ),
+                      );
+                    },
+                  ),
                 );
               default:
                 return const SizedBox.shrink();
@@ -145,7 +157,11 @@ class _MovieCard extends StatelessWidget {
   final String image;
   final String title;
   final String subtitle;
-  const _MovieCard({required this.image, required this.title, required this.subtitle});
+  const _MovieCard({
+    required this.image,
+    required this.title,
+    required this.subtitle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -164,28 +180,33 @@ class _MovieCard extends StatelessWidget {
               width: double.infinity,
               height: 200.h,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => Container(
-                width: double.infinity,
-                height: 200.h,
-                color: AppColors.background,
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.movie_creation_outlined, color: AppColors.textPrimary.withValues(alpha: 0.3), size: 36.sp),
-                    SizedBox(height: 6.h),
-                    Text(
-                      'Görsel Yok'.localized,
-                      style: TextStyle(
-                        color: AppColors.textPrimary.withValues(alpha: 0.4),
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: FontHelper.euclidCircularA().fontFamily,
-                      ),
+              errorBuilder:
+                  (context, error, stackTrace) => Container(
+                    width: double.infinity,
+                    height: 200.h,
+                    color: AppColors.background,
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.movie_creation_outlined,
+                          color: AppColors.textPrimary.withValues(alpha: 0.3),
+                          size: 36.sp,
+                        ),
+                        SizedBox(height: 6.h),
+                        Text(
+                          'Görsel Yok'.localized,
+                          style: TextStyle(
+                            color: AppColors.textPrimary.withValues(alpha: 0.4),
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: FontHelper.euclidCircularA().fontFamily,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
+                  ),
             ),
           ),
           SizedBox(height: 10.h),

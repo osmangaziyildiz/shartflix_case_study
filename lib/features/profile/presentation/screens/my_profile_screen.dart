@@ -51,15 +51,18 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   children: [
                     const ProfileTopBar(),
                     SizedBox(height: 24.h),
-                    if (state is ProfileLoading && state is! ProfileLoaded)
-                      const Expanded(child: Center(child: CircularProgressIndicator())),
-                    if (state is ProfileError)
+                    if (state.status == ProfileStatus.loading && state.user == null)
+                      const Expanded(
+                        child: Center(child: CircularProgressIndicator()),
+                      ),
+                    if (state.status == ProfileStatus.error)
                       Expanded(
                         child: Center(
                           child: Text(
                             'Profil bilgileri yüklenemedi :('.localized,
                             style: TextStyle(
-                              fontFamily: FontHelper.euclidCircularA().fontFamily,
+                              fontFamily:
+                                  FontHelper.euclidCircularA().fontFamily,
                               color: AppColors.textPrimary,
                               fontWeight: FontWeight.w700,
                               fontSize: 13.sp,
@@ -67,11 +70,13 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                           ),
                         ),
                       ),
-                    if (state is ProfileLoaded) ...[
+                    if (state.user != null) ...[
                       ProfileSection(
-                        user: state.user,
+                        user: state.user!,
                         onPhotoUpload: () {
-                          context.push(Routes.photoUpload).then((_) => _viewModel.fetchProfile());
+                          context
+                              .push(Routes.photoUpload)
+                              .then((_) => _viewModel.fetchProfile());
                         },
                       ),
                       SizedBox(height: 28.h),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shartflix/core/constants/app_colors.dart';
+import 'package:shartflix/core/navigation/app_routes.dart';
 import 'package:shartflix/core/utils/font_helper.dart';
 import 'package:shartflix/core/utils/localization_manager.dart';
 
@@ -30,8 +32,7 @@ class ProfileTopBar extends StatelessWidget {
                 size: 20.sp,
               ),
               onPressed: () {
-                // TODO: Home sayfasına yönlendirme eklenecek
-                
+                context.go(Routes.home);
               },
             ),
           ),
