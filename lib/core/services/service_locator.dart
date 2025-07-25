@@ -39,22 +39,22 @@ Future<void> setupServiceLocator() async {
   );
 
   // Auth feature DI
-  sl.registerFactory<AuthRemoteDataSource>(
+  sl.registerLazySingleton<AuthRemoteDataSource>(
     () => AuthRemoteDataSourceImpl(dio: sl<DioClient>().dio),
   );
-  sl.registerFactory<AuthLocalDataSource>(
+  sl.registerLazySingleton<AuthLocalDataSource>(
     () => AuthLocalDataSourceImpl(secureStorage: sl<FlutterSecureStorage>()),
   );
-  sl.registerFactory<AuthRepository>(
+  sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
       remoteDataSource: sl<AuthRemoteDataSource>(),
       localDataSource: sl<AuthLocalDataSource>(),
     ),
   );
-  sl.registerFactory<LoginUseCase>(
+  sl.registerLazySingleton<LoginUseCase>(
     () => LoginUseCase(repository: sl<AuthRepository>()),
   );
-  sl.registerFactory<RegisterUseCase>(
+  sl.registerLazySingleton<RegisterUseCase>(
     () => RegisterUseCase(repository: sl<AuthRepository>()),
   );
   sl.registerFactory<AuthViewModel>(

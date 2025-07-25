@@ -1,5 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
+import 'package:shartflix/core/widgets/error_screen.dart';
+import 'package:shartflix/features/auth/domain/repositories/auth_repository.dart';
 import 'package:shartflix/features/auth/presentation/screens/login_screen.dart';
 import 'package:shartflix/core/navigation/app_routes.dart';
 import 'package:shartflix/features/auth/presentation/screens/register_screen.dart';
@@ -7,13 +9,20 @@ import 'package:shartflix/features/home/presentation/screens/discover_screen.dar
 import 'package:shartflix/features/profile/presentation/screens/my_profile_screen.dart';
 import 'package:shartflix/core/widgets/app_bottom_nav_bar.dart';
 import 'package:shartflix/features/profile/presentation/screens/photo_upload_screen.dart';
+import 'package:shartflix/features/splash/presentation/screens/splash_screen.dart';
+import 'package:shartflix/core/services/service_locator.dart';
 
 class RouteManager {
   static GoRouter get router => _router;
 
   static final GoRouter _router = GoRouter(
-    initialLocation: Routes.home,
+    initialLocation: Routes.splash,
     routes: [
+      GoRoute(
+        path: Routes.splash,
+        name: 'splash',
+        builder: (context, state) => const SplashScreen(),
+      ),
       // --- TABS: Home & Profile ---
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -30,8 +39,8 @@ class RouteManager {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: Routes.home,
-                name: 'home',
+                path: Routes.discover,
+                name: 'discover',
                 builder: (context, state) => const DiscoverScreen(),
               ),
             ],
@@ -67,15 +76,26 @@ class RouteManager {
     ],
 
     // Error sayfası
-    errorBuilder: (context, state) => const LoginScreen(),
+    errorBuilder: (context, state) => const ErrorScreen(),
 
     // Navigation guard'lar için
-    redirect: (context, state) {
-      // TODO: Auth check logic buraya gelecek
-      // final isLoggedIn = AuthService.isLoggedIn;
-      // if (!isLoggedIn && state.location != Routes.login) {
-      //   return Routes.login;
-      // }
+    redirect: (context, state) async {
+      final authRepository = sl<AuthRepository>();
+      final token = await authRepository.getToken();
+      final isLoggedIn = token != null;
+
+      final unauthenticatedRoutes = [
+        Routes.login,
+        Routes.register,
+        Routes.splash
+      ];
+
+      // Eğer kullanıcı giriş yapmamışsa ve gitmek istediği sayfa
+      // güvenli olmayan (herkesin erişebileceği) bir sayfa değilse, login'e yönlendir.
+      if (!isLoggedIn && !unauthenticatedRoutes.contains(state.matchedLocation)) {
+        return Routes.login;
+      }
+
       return null;
     },
   );

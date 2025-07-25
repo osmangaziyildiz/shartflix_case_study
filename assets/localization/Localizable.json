@@ -342,5 +342,11 @@
       "tr": "Fotoğraf başarıyla yüklendi",
       "en": "Photo uploaded successfully"
     }
+  },
+  "Sanırım bir şeyler ters gitti. \nEndişelenme, bildirimlerini aldık ve üzerinde çalışmaya başladık bile.": {
+    "localizations": {
+      "tr": "Sanırım bir şeyler ters gitti. \nEndişelenme, bildirimlerini aldık ve üzerinde çalışmaya başladık bile.",
+      "en": "I think something went wrong. \nDon't worry, we've received the notification and we're working on it."
+    }
   }
 }

@@ -18,7 +18,7 @@ class HomeViewModel extends Bloc<HomeEvent, HomeState> {
     required ToggleFavoriteUsecase toggleFavoriteUsecase,
   }) : _getMoviesUsecase = getMoviesUsecase,
        _toggleFavoriteUsecase = toggleFavoriteUsecase,
-       super(const HomeState()) {
+      super(const HomeState()) {
     on<FetchMovies>(_onFetchMovies);
     on<RefreshMovies>(_onRefreshMovies);
     on<ToggleFavorite>(_onToggleFavorite);

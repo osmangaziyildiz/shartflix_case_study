@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shartflix/core/constants/app_colors.dart';
+import 'package:shartflix/core/constants/app_icons.dart';
 import 'package:shartflix/core/utils/font_helper.dart';
 import 'package:shartflix/core/utils/localization_manager.dart';
 
@@ -142,19 +143,19 @@ class PremiumOfferSheet extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: const [
               _BonusItem(
-                iconPath: 'assets/icons/paywall/feature_icon1.png',
+                iconPath: AppIcons.featureIcon1,
                 label: 'Premium\nHesap',
               ),
               _BonusItem(
-                iconPath: 'assets/icons/paywall/feature_icon2.png',
+                iconPath: AppIcons.featureIcon2,
                 label: 'Daha Fazla\nEşleşme',
               ),
               _BonusItem(
-                iconPath: 'assets/icons/paywall/feature_icon3.png',
+                iconPath: AppIcons.featureIcon3,
                 label: 'Öne\nÇıkarma',
               ),
               _BonusItem(
-                iconPath: 'assets/icons/paywall/feature_icon4.png',
+                iconPath: AppIcons.featureIcon4,
                 label: 'Daha Fazla\nBeğeni',
               ),
             ],
