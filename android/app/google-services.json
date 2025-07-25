@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "371452703711",
+    "project_id": "sinflix-1df85",
+    "storage_bucket": "sinflix-1df85.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371452703711:android:fe83a04241fc54e7a40a6a",
+        "android_client_info": {
+          "package_name": "com.osmangaziyildiz.shartflix"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4XRvzFgYCqykChS87N9-3CK9Uu7gTnpE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -19,6 +19,8 @@ class AuthViewModel extends Cubit<AuthState> {
       emit(AuthSuccess(user: user));
     } on ServerException catch (e) {
       emit(AuthError(message: e.message.localized));
+    } on Exception catch (e) {
+      emit(AuthError(message: e.toString().replaceFirst('Exception: ', '')));
     } catch (e) {
       emit(AuthError(message: 'Beklenmedik bir hata oluştu'.localized));
     }
@@ -41,6 +43,8 @@ class AuthViewModel extends Cubit<AuthState> {
       emit(AuthSuccess(user: user));
     } on ServerException catch (e) {
       emit(AuthError(message: e.message.localized));
+    } on Exception catch (e) {
+      emit(AuthError(message: e.toString().replaceFirst('Exception: ', '')));
     } catch (e) {
       emit(AuthError(message: 'Beklenmedik bir hata oluştu'.localized));
     }

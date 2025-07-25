@@ -9,7 +9,7 @@ import 'package:shartflix/features/home/presentation/screens/discover_screen.dar
 import 'package:shartflix/features/profile/presentation/screens/my_profile_screen.dart';
 import 'package:shartflix/core/widgets/app_bottom_nav_bar.dart';
 import 'package:shartflix/features/profile/presentation/screens/photo_upload_screen.dart';
-import 'package:shartflix/features/splash/presentation/screens/splash_screen.dart';
+import 'package:shartflix/core/widgets/splash_screen.dart';
 import 'package:shartflix/core/services/service_locator.dart';
 
 class RouteManager {

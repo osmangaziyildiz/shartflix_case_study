@@ -58,7 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           return BlocListener<AuthViewModel, AuthState>(
             listener: (context, state) {
               if (state is AuthSuccess) {
-                context.go(Routes.home);
+                context.go(Routes.discover);
               } else if (state is AuthError) {
                 showTopSnackBar(
                   Overlay.of(context),

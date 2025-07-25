@@ -33,7 +33,7 @@ class ProfileTopBar extends StatelessWidget {
                 size: 20.sp,
               ),
               onPressed: () {
-                context.go(Routes.home);
+                context.go(Routes.discover);
               },
             ),
           ),
