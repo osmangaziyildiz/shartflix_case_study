@@ -1,5 +1,7 @@
 ## NOTLAR
 
+- VERİLEN TÜM TASK'LER -BONUSLAR DAHİL- TAMAMLANMIŞTIR.
+
 - Projede hakkında genel bir bilgi sağlaması açısından projenin kök dizinine "docs" adında bir klasör oluşturdum, bu klasörde teknik dökümantasyonlar yer almakta.
 
 - Film datasındaki "Poster" parametresinde gelen bazı linkler kırık olduğu (çalışmadığı) için "Images" listesindeki ilk görselleri kullandım profil sayfasında.
