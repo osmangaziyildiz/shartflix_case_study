@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:shartflix/core/widgets/error_screen.dart';
 import 'package:shartflix/features/auth/domain/repositories/auth_repository.dart';
 import 'package:shartflix/features/auth/presentation/screens/login_screen.dart';
@@ -17,6 +18,9 @@ class RouteManager {
 
   static final GoRouter _router = GoRouter(
     initialLocation: Routes.splash,
+    observers: [
+      FirebaseAnalyticsObserver(analytics: sl<FirebaseAnalytics>()),
+    ],
     routes: [
       GoRoute(
         path: Routes.splash,

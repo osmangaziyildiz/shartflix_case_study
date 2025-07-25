@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:shartflix/core/network/dio_client.dart';
 import 'package:shartflix/features/auth/data/datasources/auth_local_datasource.dart';
 import 'package:shartflix/features/auth/data/datasources/auth_remote_datasource.dart';
@@ -25,12 +27,21 @@ import 'package:shartflix/features/home/domain/usecases/get_movies_usecase.dart'
 import 'package:shartflix/features/home/domain/usecases/toggle_favorite_usecase.dart';
 import 'package:shartflix/features/home/presentation/viewmodels/home_view_model.dart';
 
+import 'logger_service.dart';
+import 'analytics_service.dart';
+
 final GetIt sl = GetIt.instance;
 
 Future<void> setupServiceLocator() async {
   // Core
   sl.registerSingleton<DioClient>(DioClient.instance);
   sl.registerSingleton<FlutterSecureStorage>(const FlutterSecureStorage());
+  sl.registerSingleton<FirebaseCrashlytics>(FirebaseCrashlytics.instance);
+  sl.registerSingleton<FirebaseAnalytics>(FirebaseAnalytics.instance);
+  sl.registerSingleton<LoggerService>(LoggerServiceImpl(sl<FirebaseCrashlytics>()));
+  sl.registerSingleton<AnalyticsService>(
+    AnalyticsServiceImpl(sl<FirebaseAnalytics>()),
+  );
 
   // Bu stream sadece favori filmler veya profil bilgileri değiştiğinde rebuild oluyor.
   // Bu sayede kullanıcı her "Profil" sekmesine geçtiğinde gereksiz yere API isteği yapılmıyor.
@@ -49,6 +60,8 @@ Future<void> setupServiceLocator() async {
     () => AuthRepositoryImpl(
       remoteDataSource: sl<AuthRemoteDataSource>(),
       localDataSource: sl<AuthLocalDataSource>(),
+      logger: sl<LoggerService>(),
+      analytics: sl<AnalyticsService>(),
     ),
   );
   sl.registerLazySingleton<LoginUseCase>(
@@ -69,7 +82,11 @@ Future<void> setupServiceLocator() async {
     () => HomeRemoteDatasourceImpl(dio: sl<DioClient>().dio),
   );
   sl.registerFactory<HomeRepository>(
-    () => HomeRepositoryImpl(remoteDataSource: sl<HomeRemoteDatasource>()),
+    () => HomeRepositoryImpl(
+      remoteDataSource: sl<HomeRemoteDatasource>(),
+      logger: sl<LoggerService>(),
+      analytics: sl<AnalyticsService>(),
+    ),
   );
   sl.registerFactory<GetMoviesUsecase>(
     () => GetMoviesUsecase(sl<HomeRepository>()),
@@ -89,7 +106,10 @@ Future<void> setupServiceLocator() async {
     () => ProfileRemoteDataSourceImpl(dio: sl<DioClient>().dio),
   );
   sl.registerFactory<ProfileRepository>(
-    () => ProfileRepositoryImpl(remoteDataSource: sl<ProfileRemoteDataSource>()),
+    () => ProfileRepositoryImpl(
+      remoteDataSource: sl<ProfileRemoteDataSource>(),
+      logger: sl<LoggerService>(),
+    ),
   );
   sl.registerFactory<GetProfileUseCase>(
     () => GetProfileUseCase(repository: sl<ProfileRepository>()),

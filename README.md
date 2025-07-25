@@ -1,5 +1,7 @@
 ## NOTLAR
 
+- Projede hakkında genel bir bilgi sağlaması açısından projenin kök dizinine "docs" adında bir klasör oluşturdum, bu klasörde teknik dökümantasyonlar yer almakta.
+
 - Film datasındaki "Poster" parametresinde gelen bazı linkler kırık olduğu (çalışmadığı) için "Images" listesindeki ilk görselleri kullandım profil sayfasında.
 
 - Profil sekmesine her geçişte gereksiz durumlarda bile filmler ve profil bilgileri çekilmemesi adına bir Stream yapısı kurdum. Bu stream yapısı sadece bir değişiklik olduğu zaman "favori filmler veya profil bilgileri" çekmek için istek atıp rebuild oluyor.
@@ -10,8 +12,6 @@ Yani kullanıcı her "Profil" sekmesine geçtiğinde gereksiz yere API isteği y
 - Performans optimizasyonu için LayoutBuilder kullandım.
 
 - Login sonrası token flutter_secure_storage ile güvenli bir şekilde cihaz hafızasına kayıt ediliyor. Fakat şu an "Beni hatırla" veya "Çıkış yap" gibi özellikler istenmediği için app her açıldığında tekrar login olmak gerekiyor. 
-
-- Projede hakkında genel bir bilgi sağlaması açısından projenin kök dizinine "docs" adında bir klasör oluşturdum, bu klasörde teknik dökümantasyonlar yer almakta.
 
 - Navigation sırasında herhangi bir hata oluşur ise otomatik olarak yönlendirilecek merkezi hata ekranı kodlandı.
 
@@ -27,6 +27,7 @@ Yani kullanıcı her "Profil" sekmesine geçtiğinde gereksiz yere API isteği y
 
 Daha basit olarak şöyle bir yapı kullanılabilirdi:
 
+```
 lib/
 ├── core/                       
 │   ├── network/
@@ -54,3 +55,4 @@ lib/
 │
 │       └── //.... Diğer featurelar
 ├── main.dart
+```

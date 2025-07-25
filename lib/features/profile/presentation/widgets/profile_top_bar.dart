@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shartflix/core/constants/app_colors.dart';
 import 'package:shartflix/core/navigation/app_routes.dart';
+import 'package:shartflix/core/services/analytics_service.dart';
+import 'package:shartflix/core/services/service_locator.dart';
 import 'package:shartflix/core/utils/font_helper.dart';
 import 'package:shartflix/core/utils/localization_manager.dart';
 import 'package:shartflix/features/profile/presentation/widgets/premium_offer_sheet.dart';
@@ -53,6 +55,9 @@ class ProfileTopBar extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: GestureDetector(
             onTap: () {
+              // Kullanıcının ödeme duvarını gördüğünü logla.
+              sl<AnalyticsService>().logCustomEvent(name: 'view_paywall');
+
               showModalBottomSheet(
                 context: context,
                 backgroundColor: Colors.transparent,
