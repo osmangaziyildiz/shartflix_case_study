@@ -64,14 +64,25 @@ class _DiscoverViewState extends State<_DiscoverView> {
             return const Center(child: Text('Filmler yüklenemedi.'));
           }
 
-          return PageView.builder(
-            controller: _pageController,
-            scrollDirection: Axis.vertical,
-            itemCount: state.movies.length,
-            itemBuilder: (context, index) {
-              final movie = state.movies[index];
-              return _MoviePageItem(movie: movie, movieIndex: index);
+          return RefreshIndicator(
+            backgroundColor: Colors.white.withValues(alpha: 0.1),
+            onRefresh: () async {
+              context.read<HomeViewModel>().add(RefreshMovies());
+              await context.read<HomeViewModel>().stream.firstWhere(
+                (newState) =>
+                    newState.status == HomeStatus.success ||
+                    newState.status == HomeStatus.error,
+              );
             },
+            child: PageView.builder(
+              controller: _pageController,
+              scrollDirection: Axis.vertical,
+              itemCount: state.movies.length,
+              itemBuilder: (context, index) {
+                final movie = state.movies[index];
+                return _MoviePageItem(movie: movie, movieIndex: index);
+              },
+            ),
           );
         },
       ),
