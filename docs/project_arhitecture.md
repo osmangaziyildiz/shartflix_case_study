@@ -1,3 +1,4 @@
+```
 lib/
 ├── core/                        # Tüm modüllerde ortak yapılar
 │   ├── network/                 # Network utils, connectivity checker
@@ -21,3 +22,4 @@ lib/
 │           ├── viewmodel/       # LoginBloc, LoginEvent, LoginState
 │           └── widgets/
 ├── main.dart
+```
